@@ -4,6 +4,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.util.Locale;
+
 public class Main extends Application {
 
     @Override
@@ -11,5 +13,9 @@ public class Main extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/view/LogIn.fxml"));
         stage.setScene(new Scene(root, 300, 275));
         stage.show();
+    }
+    public static void main(String[] args) {
+    System.out.println(Locale.getDefault());
+        launch(args);
     }
 }
