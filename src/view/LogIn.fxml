@@ -9,7 +9,7 @@
       <TextField layoutX="274.0" layoutY="214.0" />
       <TextField layoutX="274.0" layoutY="151.0" />
       <Label fx:id="userLabel" layoutX="205.0" layoutY="155.0" text="User ID:" />
-      <Label layoutX="205.0" layoutY="218.0" text="Password:" />
+      <Label fx:id="passwordLabel" layoutX="205.0" layoutY="218.0" text="Password:" />
       <Label fx:id="headingLabel" layoutX="235.0" layoutY="72.0" text="Please log in to continue" />
       <Label fx:id="locationLabel" layoutX="29.0" layoutY="354.0" text="Label" />
    </children>
