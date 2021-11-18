@@ -33,10 +33,12 @@ public class LogInController implements Initializable {
         this.rb = rb;
         System.out.println(Locale.getDefault());
 
+        Locale currentLocale = Locale.getDefault();
         passwordLabel.setText(rb.getString("password"));
         submitButton.setText(rb.getString("submit"));
         userLabel.setText(rb.getString("user"));
         headingLabel.setText(rb.getString("heading"));
+        locationLabel.setText(currentLocale.getDisplayCountry());
     }
 
 }
