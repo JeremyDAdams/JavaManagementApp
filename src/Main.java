@@ -3,6 +3,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import utilities.JDBC;
 
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -34,6 +35,8 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
     System.out.println(Locale.getDefault());
+        JDBC.makeConnection();
+        JDBC.closeConnection();
         launch(args);
     }
 

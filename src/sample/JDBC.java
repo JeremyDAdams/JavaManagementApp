@@ -56,7 +56,4 @@ public class JDBC {
            else System.out.println("Null reference to Prepared Statement");
            return null;
        }
-
-
-
 }
