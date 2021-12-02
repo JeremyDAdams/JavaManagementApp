@@ -12,7 +12,7 @@ public class User {
     private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
 
-    public User(int userId, String userName, String password, int active, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy) {
+    /*public User(int userId, String userName, String password, int active, LocalDateTime createDate, String createdBy, LocalDateTime lastUpdate, String lastUpdatedBy) {
         this.userId = userId;
         this.userName = userName;
         this.password = password;
@@ -21,7 +21,7 @@ public class User {
         this.createdBy = createdBy;
         this.lastUpdate = lastUpdate;
         this.lastUpdatedBy = lastUpdatedBy;
-    }
+    }*/
 
     public int getUserId() {
         return userId;
