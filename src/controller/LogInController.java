@@ -103,14 +103,15 @@ public class LogInController implements Initializable {
         }
 
         if(verify) {
-            log.info("Login successful.");
+            //log.info("Login successful.");
 
             stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
         } else {
-            log.warning("Login failed.");
+            //log.warning("Login failed.");
+            System.out.println("Not working.");
         }
     }
 
