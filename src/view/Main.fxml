@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="controller.MainController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane prefHeight="626.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+   <children>
+      <TableView layoutX="670.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
+        <columns>
+          <TableColumn prefWidth="253.0" text="Title" />
+          <TableColumn minWidth="0.0" prefWidth="103.0" text="Start" />
+            <TableColumn minWidth="0.0" prefWidth="126.0" text="End" />
+        </columns>
+      </TableView>
+      <TableView layoutX="91.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
+        <columns>
+          <TableColumn prefWidth="75.0" text="ID" />
+          <TableColumn prefWidth="278.0" text="Name" />
+        </columns>
+      </TableView>
+      <Button layoutX="133.0" layoutY="528.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="307.0" layoutY="528.0" mnemonicParsing="false" text="Update" />
+      <Button layoutX="472.0" layoutY="528.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="720.0" layoutY="528.0" mnemonicParsing="false" text="Add" />
+      <Button layoutX="886.0" layoutY="528.0" mnemonicParsing="false" text="Update" />
+      <Button layoutX="1066.0" layoutY="528.0" mnemonicParsing="false" text="Delete" />
+      <Button fx:id="exitButton" layoutX="1144.0" layoutY="573.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
+      <Label layoutX="304.0" layoutY="43.0" text="Customers" />
+      <Label layoutX="898.0" layoutY="43.0" text="Appointments" />
+   </children>
 </AnchorPane>
