@@ -25,9 +25,11 @@ public class sqlUser {
             while (resultSet.next()) {
                 String userName = resultSet.getString("User_Name");
                 String password = resultSet.getString("Password");
+                int userId = resultSet.getInt("User_ID");
                 User user = new User();
                 user.setUserName(userName);
                 user.setPassword(password);
+                user.setUserId(userId);
                 users.add(user);
             }
         } catch (SQLException throwables) {

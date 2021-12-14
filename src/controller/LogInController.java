@@ -6,6 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 
@@ -23,10 +24,18 @@ import javafx.stage.Stage;
 import model.User;
 import utilities.JDBC;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+
 import static utilities.sqlUser.getUsers;
 import static utilities.sqlUser.users;
 
 public class LogInController implements Initializable {
+
+    public static String userID;
+    public static int USEID;
 
     Stage stage;
     Parent scene;
@@ -57,6 +66,8 @@ public class LogInController implements Initializable {
 
 
     ResourceBundle rb;
+    //private String logInError = rb.getString("loginerror");
+
 
     //@Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -70,9 +81,12 @@ public class LogInController implements Initializable {
         userLabel.setText(rb.getString("user"));
         headingLabel.setText(rb.getString("heading"));
         locationLabel.setText(currentLocale.getDisplayCountry());
+        String logInError = rb.getString("loginerror");
+
+
     }
 
-    public void submitBtnClick(ActionEvent actionEvent) throws IOException {
+    public void submitBtnClick(ActionEvent actionEvent) throws IOException, SQLException {
 
         Logger log = Logger.getLogger("log.txt");
 
@@ -89,22 +103,28 @@ public class LogInController implements Initializable {
         getUsers();
 
         //System.out.println(users.getPassword());
-        String userName = userField.getText();
+        userID = userField.getText();
         String password = passField.getText();
         Boolean verify = false;
+        String uN = "";
+        String pass = "";
+
         for(User user : users) {
-            String uN = user.getUserName();
-            String pass = user.getPassword();
-            if(uN.equals(userName)) {
+            uN = user.getUserName();
+            pass = user.getPassword();
+            if(uN.equals(userID)) {
                 if (pass.equals(password)) {
                     verify = true;
+                    USEID = user.getUserId();
                 }
             }
         }
 
         if(verify) {
             //log.info("Login successful.");
-
+            System.out.println(" Hello there " + userID);
+            System.out.println(" Hey there " + USEID);
+            //userName = Integer.parseInt(userField.getText());
             stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
             stage.setScene(new Scene(scene));
@@ -112,6 +132,10 @@ public class LogInController implements Initializable {
         } else {
             //log.warning("Login failed.");
             System.out.println("Not working.");
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Oh noooooo");
+            alert.showAndWait();
         }
     }
 
