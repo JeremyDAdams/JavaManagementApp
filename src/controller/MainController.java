@@ -13,6 +13,7 @@ public class MainController implements Initializable {
     public void initialize (URL url, ResourceBundle rb){
         int userId = LogInController.USEID;
         System.out.println(userId + "This is from MainController");
+
     }
 
     public void exitBtnClick(ActionEvent actionEvent) {
