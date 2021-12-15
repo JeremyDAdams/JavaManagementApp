@@ -34,9 +34,10 @@ import static utilities.sqlUser.users;
 
 public class LogInController implements Initializable {
 
-    public static String userID;
+    public static String userName;
     public static int USEID;
 
+    public String logInError = "";
     Stage stage;
     Parent scene;
 
@@ -66,10 +67,7 @@ public class LogInController implements Initializable {
 
 
     ResourceBundle rb;
-    //private String logInError = rb.getString("loginerror");
 
-
-    //@Override
     public void initialize(URL url, ResourceBundle rb) {
         this.rb = rb;
         System.out.println(Locale.getDefault());
@@ -81,7 +79,7 @@ public class LogInController implements Initializable {
         userLabel.setText(rb.getString("user"));
         headingLabel.setText(rb.getString("heading"));
         locationLabel.setText(currentLocale.getDisplayCountry());
-        String logInError = rb.getString("loginerror");
+        logInError = rb.getString("loginerror");
 
 
     }
@@ -103,7 +101,7 @@ public class LogInController implements Initializable {
         getUsers();
 
         //System.out.println(users.getPassword());
-        userID = userField.getText();
+        userName = userField.getText();
         String password = passField.getText();
         Boolean verify = false;
         String uN = "";
@@ -112,7 +110,7 @@ public class LogInController implements Initializable {
         for(User user : users) {
             uN = user.getUserName();
             pass = user.getPassword();
-            if(uN.equals(userID)) {
+            if(uN.equals(userName)) {
                 if (pass.equals(password)) {
                     verify = true;
                     USEID = user.getUserId();
@@ -122,9 +120,8 @@ public class LogInController implements Initializable {
 
         if(verify) {
             //log.info("Login successful.");
-            System.out.println(" Hello there " + userID);
+            System.out.println(" Hello there " + userName);
             System.out.println(" Hey there " + USEID);
-            //userName = Integer.parseInt(userField.getText());
             stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
             stage.setScene(new Scene(scene));
@@ -134,7 +131,8 @@ public class LogInController implements Initializable {
             System.out.println("Not working.");
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
-            alert.setContentText("Oh noooooo");
+            logInError = rb.getString("loginerror");
+            alert.setContentText(logInError);
             alert.showAndWait();
         }
     }

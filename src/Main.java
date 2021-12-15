@@ -15,7 +15,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
         this.stage = stage;
-        //Locale.setDefault(new Locale("fr", "France"));
+        Locale.setDefault(new Locale("fr", "France"));
         ResourceBundle rb = ResourceBundle.getBundle("language_files/rb");
 
         Parent main = null;
