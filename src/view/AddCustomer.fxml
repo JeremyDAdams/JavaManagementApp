@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="638.0" prefWidth="945.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.AddCustomerController">
+   <children>
+      <Label layoutX="45.0" layoutY="32.0" prefHeight="32.0" prefWidth="172.0" style="-fx-font-weight: bold;" text="Add Customer">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="47.0" layoutY="111.0" prefHeight="17.0" prefWidth="20.0" text="ID" />
+      <TextField editable="false" layoutX="121.0" layoutY="107.0" prefHeight="25.0" prefWidth="72.0" promptText="Auto Gen" />
+      <Label layoutX="41.0" layoutY="147.0" text="Name" />
+      <Label layoutX="41.0" layoutY="191.0" text="Address" />
+      <TextField layoutX="121.0" layoutY="143.0" />
+      <TextField layoutX="121.0" layoutY="187.0" />
+      <TextField layoutX="121.0" layoutY="229.0" />
+      <TextField layoutX="121.0" layoutY="272.0" />
+      <Label layoutX="41.0" layoutY="233.0" text="Postal Code" />
+      <Label layoutX="41.0" layoutY="276.0" text="Phone #" />
+      <ComboBox layoutX="588.0" layoutY="143.0" prefWidth="150.0" />
+      <ComboBox layoutX="588.0" layoutY="229.0" prefWidth="150.0" />
+      <Label layoutX="459.0" layoutY="147.0" text="First-Level Division" />
+      <Label layoutX="459.0" layoutY="233.0" text="Country" />
+   </children>
+</AnchorPane>

@@ -18,12 +18,12 @@
           <TableColumn fx:id="customerNameCol" prefWidth="362.0" text="Name" />
         </columns>
       </TableView>
-      <Button layoutX="133.0" layoutY="528.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="307.0" layoutY="528.0" mnemonicParsing="false" text="Update" />
-      <Button layoutX="472.0" layoutY="528.0" mnemonicParsing="false" text="Delete" />
-      <Button layoutX="720.0" layoutY="528.0" mnemonicParsing="false" text="Add" />
-      <Button layoutX="886.0" layoutY="528.0" mnemonicParsing="false" text="Update" />
-      <Button layoutX="1066.0" layoutY="528.0" mnemonicParsing="false" text="Delete" />
+      <Button layoutX="133.0" layoutY="528.0" mnemonicParsing="false" onAction="#custAddBtnClick" text="Add" />
+      <Button layoutX="307.0" layoutY="528.0" mnemonicParsing="false" onAction="#custUpdateBtnClick" text="Update" />
+      <Button layoutX="472.0" layoutY="528.0" mnemonicParsing="false" onAction="#custDeleteBtnClick" text="Delete" />
+      <Button layoutX="720.0" layoutY="528.0" mnemonicParsing="false" onAction="#apptAddBtnClick" text="Add" />
+      <Button layoutX="886.0" layoutY="528.0" mnemonicParsing="false" onAction="#apptUpdateBtnClick" text="Update" />
+      <Button layoutX="1066.0" layoutY="528.0" mnemonicParsing="false" onAction="#apptDeleteBtnClick" text="Delete" />
       <Button fx:id="exitButton" layoutX="1144.0" layoutY="573.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
       <Label layoutX="304.0" layoutY="43.0" text="Customers" />
       <Label layoutX="898.0" layoutY="43.0" text="Appointments" />
