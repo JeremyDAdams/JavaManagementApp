@@ -29,13 +29,14 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static utilities.sqlCustomer.getCustomers;
 import static utilities.sqlUser.getUsers;
 import static utilities.sqlUser.users;
 
 public class LogInController implements Initializable {
 
     public static String userName;
-    public static int USEID;
+    public static int userId;
 
     public String logInError = "";
     Stage stage;
@@ -99,7 +100,7 @@ public class LogInController implements Initializable {
             Logger.getLogger(LogInController.class.getName()).log(Level.SEVERE, null, ex);
         }
         getUsers();
-
+        getCustomers();
         //System.out.println(users.getPassword());
         userName = userField.getText();
         String password = passField.getText();
@@ -113,7 +114,7 @@ public class LogInController implements Initializable {
             if(uN.equals(userName)) {
                 if (pass.equals(password)) {
                     verify = true;
-                    USEID = user.getUserId();
+                    userId = user.getUserId();
                 }
             }
         }
@@ -121,7 +122,7 @@ public class LogInController implements Initializable {
         if(verify) {
             //log.info("Login successful.");
             System.out.println(" Hello there " + userName);
-            System.out.println(" Hey there " + USEID);
+            System.out.println(" Hey there " + userId);
             stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
             stage.setScene(new Scene(scene));

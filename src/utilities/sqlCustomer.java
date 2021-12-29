@@ -8,6 +8,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 
 public class sqlCustomer {
     private static Connection connection = JDBC.getConnection();
@@ -22,10 +23,18 @@ public class sqlCustomer {
 
             while(resultSet.next()) {
                 int customerId = resultSet.getInt("Customer_ID");
+                String customerName = resultSet.getString("Customer_Name");
+                String address = resultSet.getString("Address");
+                String postalCode = resultSet.getString("Postal_Code");
+                String phone = resultSet.getString("Phone");
+                LocalDateTime createDate = resultSet.getObject("Create_Date", LocalDateTime.class);
+                String createdBy = resultSet.getString("Created_By");
+                LocalDateTime lastUpdate = resultSet.getObject("Last_Update", LocalDateTime.class);
+                String lastUpdatedBy = resultSet.getString("Last_Updated_By");
+                int divisionId = resultSet.getInt("Division_ID");
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-
     }
 }

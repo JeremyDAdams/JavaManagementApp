@@ -6,11 +6,11 @@ public class Customer {
     private int customerId;
     private String customerName;
     private String address;
-    private int postalCode;
+    private String postalCode;
     private String phone;
     private LocalDateTime createDate;
     private String createdBy;
-    private LocalDateTime lastUpdated;
+    private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private int divisionId;
 
@@ -39,11 +39,11 @@ public class Customer {
         this.address = address;
     }
 
-    public int getPostalCode() {
+    public String getPostalCode() {
         return postalCode;
     }
 
-    public void setPostalCode(int postalCode) {
+    public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
     }
 
@@ -71,12 +71,12 @@ public class Customer {
         this.createdBy = createdBy;
     }
 
-    public LocalDateTime getLastUpdated() {
-        return lastUpdated;
+    public LocalDateTime getLastUpdate() {
+        return lastUpdate;
     }
 
-    public void setLastUpdated(LocalDateTime lastUpdated) {
-        this.lastUpdated = lastUpdated;
+    public void setLastUpdate(LocalDateTime lastUpdate) {
+        this.lastUpdate = lastUpdate;
     }
 
     public String getLastUpdatedBy() {

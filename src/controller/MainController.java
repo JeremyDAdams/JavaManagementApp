@@ -11,7 +11,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle rb){
-        int userId = LogInController.USEID;
+        int userId = LogInController.userId;
         System.out.println(userId + "This is from MainController");
 
     }
