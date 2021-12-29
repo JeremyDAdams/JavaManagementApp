@@ -5,17 +5,17 @@
 
 <AnchorPane prefHeight="626.0" prefWidth="1242.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <TableView layoutX="670.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
+      <TableView fx:id="apptTableView" layoutX="670.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
         <columns>
-          <TableColumn prefWidth="253.0" text="Title" />
-          <TableColumn minWidth="0.0" prefWidth="103.0" text="Start" />
-            <TableColumn minWidth="0.0" prefWidth="126.0" text="End" />
+          <TableColumn fx:id="apptTitleCol" prefWidth="253.0" text="Title" />
+          <TableColumn fx:id="apptStartCol" minWidth="0.0" prefWidth="103.0" text="Start" />
+            <TableColumn fx:id="apptEndCol" minWidth="0.0" prefWidth="126.0" text="End" />
         </columns>
       </TableView>
-      <TableView layoutX="91.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
+      <TableView fx:id="customerTableView" layoutX="91.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="ID" />
-          <TableColumn prefWidth="278.0" text="Name" />
+          <TableColumn fx:id="customerIdCol" prefWidth="120.0" text="ID" />
+          <TableColumn fx:id="customerNameCol" prefWidth="362.0" text="Name" />
         </columns>
       </TableView>
       <Button layoutX="133.0" layoutY="528.0" mnemonicParsing="false" text="Add" />
