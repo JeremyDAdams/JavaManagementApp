@@ -37,13 +37,24 @@ import model.Countries;
 public class AddCustomerController implements Initializable {
 
 
+
     Stage stage;
     Parent scene;
 
     public Connection conn;
     //conn = JDBC.makeConnection();
 
-    public TextField addNameTxt;
+    @FXML
+    private TextField addNameTxt;
+
+    @FXML
+    private TextField addAddressTxt;
+
+    @FXML
+    private TextField addPostalTxt;
+
+    @FXML
+    private TextField addPhoneTxt;
 
     @FXML
     private ComboBox addCountryCombo;
@@ -94,6 +105,7 @@ public class AddCustomerController implements Initializable {
         if(addCountryCombo.getValue().toString().equals("Canada")) {
             ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 3");
 
+            addFirstLevelCombo.setItems(FXCollections.observableArrayList());
             try {
                 while (rs.next()) {
                     addFirstLevelCombo.getItems().add(rs.getString(2));
@@ -103,6 +115,7 @@ public class AddCustomerController implements Initializable {
             }
         } else if(addCountryCombo.getValue().toString().equals("U.S")) {
             ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 1");
+            addFirstLevelCombo.setItems(FXCollections.observableArrayList());
             try {
                 while (rs.next()) {
                     addFirstLevelCombo.getItems().add(rs.getString(2));
@@ -112,6 +125,7 @@ public class AddCustomerController implements Initializable {
             }
         } else if(addCountryCombo.getValue().toString().equals("UK")) {
             ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 2");
+            addFirstLevelCombo.setItems(FXCollections.observableArrayList());
             try {
                 while (rs.next()) {
                     addFirstLevelCombo.getItems().add(rs.getString(2));
@@ -123,7 +137,7 @@ public class AddCustomerController implements Initializable {
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {
-
+        String name = addNameTxt.getText();
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {

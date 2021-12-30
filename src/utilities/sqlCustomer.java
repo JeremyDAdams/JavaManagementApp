@@ -1,5 +1,6 @@
 package utilities;
 
+import controller.LogInController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Customer;
@@ -13,6 +14,8 @@ public class sqlCustomer {
     static Statement statement = null;
     static String customerQuery = "SELECT * FROM customers";
     public static ObservableList<Customer> customers = FXCollections.observableArrayList();
+
+
 
     public static void getCustomers() {
         try {
@@ -43,14 +46,15 @@ public class sqlCustomer {
 
     public static void saveCustomer(Customer customer) throws SQLException {
         try {
+            String userName = LogInController.userName;
             String saveString = "INSERT INTO customer (customerName, address, postalCode, phone, createDate, CreatedBy, lastUpdate, lastUpdateBy, divisionId) " + "VALUES (?, ?, ? ,? ,NOW(),? ,NOW(), ?, ?)";
             PreparedStatement statement = connection.prepareStatement(saveString);
             statement.setString(1, customer.getCustomerName());
             statement.setString(2, customer.getAddress());
             statement.setString(3, customer.getPostalCode());
             statement.setString(4, customer.getPhone());
-            statement.setString(6, customer.getCreatedBy());
-            statement.setString(8, customer.getLastUpdatedBy());
+            statement.setString(6, userName);
+            statement.setString(8, userName);
             statement.setInt(9, customer.getDivisionId());
             statement.executeUpdate();
             customers.add(customer);
