@@ -41,9 +41,23 @@ public class sqlCustomer {
         }
     }
 
-    public static void saveCustomer() {
-        String saveString = "INSERT INTO customer (customerName, address, postalCode, phone, createDate, CreatedBy, lastUpdate, lastUpdateBy, divisionId) " + "VALUES (?, ?, ? ,? ,NOW(),? ,NOW(), ?, ?)";
-        //saveString.setString
+    public static void saveCustomer(Customer customer) throws SQLException {
+        try {
+            String saveString = "INSERT INTO customer (customerName, address, postalCode, phone, createDate, CreatedBy, lastUpdate, lastUpdateBy, divisionId) " + "VALUES (?, ?, ? ,? ,NOW(),? ,NOW(), ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(saveString);
+            statement.setString(1, customer.getCustomerName());
+            statement.setString(2, customer.getAddress());
+            statement.setString(3, customer.getPostalCode());
+            statement.setString(4, customer.getPhone());
+            statement.setString(6, customer.getCreatedBy());
+            statement.setString(8, customer.getLastUpdatedBy());
+            statement.setInt(9, customer.getDivisionId());
+            statement.executeUpdate();
+            customers.add(customer);
+            //saveString.setString
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
     public static ObservableList<Customer> getAllCustomers() {
         return customers;
