@@ -1,5 +1,7 @@
 package controller;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,6 +13,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.FirstLevelDivisions;
+import model.User;
 import utilities.JDBC;
 import utilities.sqlCombo;
 
@@ -27,6 +31,8 @@ import static utilities.sqlCombo.getAllCountries;
 import static utilities.sqlCombo.getCountries;
 import static utilities.sqlCustomer.getAllCustomers;
 import model.Countries;
+
+
 
 public class AddCustomerController implements Initializable {
 
@@ -84,6 +90,36 @@ public class AddCustomerController implements Initializable {
 
     public void countryComboSelect(ActionEvent actionEvent) {
 
+
+        if(addCountryCombo.getValue().toString().equals("Canada")) {
+            ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 3");
+
+            try {
+                while (rs.next()) {
+                    addFirstLevelCombo.getItems().add(rs.getString(2));
+                }
+            } catch (SQLException ex) {
+
+            }
+        } else if(addCountryCombo.getValue().toString().equals("U.S")) {
+            ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 1");
+            try {
+                while (rs.next()) {
+                    addFirstLevelCombo.getItems().add(rs.getString(2));
+                }
+            } catch (SQLException ex) {
+
+            }
+        } else if(addCountryCombo.getValue().toString().equals("UK")) {
+            ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 2");
+            try {
+                while (rs.next()) {
+                    addFirstLevelCombo.getItems().add(rs.getString(2));
+                }
+            } catch (SQLException ex) {
+
+            }
+        }
     }
 
     public void saveBtnClick(ActionEvent actionEvent) {

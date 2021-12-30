@@ -5,10 +5,7 @@ import javafx.collections.ObservableList;
 import model.Customer;
 import model.User;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.time.LocalDateTime;
 
 public class sqlCustomer {
@@ -44,6 +41,10 @@ public class sqlCustomer {
         }
     }
 
+    public static void saveCustomer() {
+        String saveString = "INSERT INTO customer (customerName, address, postalCode, phone, createDate, CreatedBy, lastUpdate, lastUpdateBy, divisionId) " + "VALUES (?, ?, ? ,? ,NOW(),? ,NOW(), ?, ?)";
+        //saveString.setString
+    }
     public static ObservableList<Customer> getAllCustomers() {
         return customers;
     }
