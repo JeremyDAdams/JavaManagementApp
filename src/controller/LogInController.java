@@ -73,6 +73,8 @@ public class LogInController implements Initializable {
         this.rb = rb;
         System.out.println(Locale.getDefault());
 
+        getCustomers();
+
         Locale currentLocale = Locale.getDefault();
         passwordLabel.setText(rb.getString("password"));
         submitButton.setText(rb.getString("submit"));
@@ -100,7 +102,7 @@ public class LogInController implements Initializable {
             Logger.getLogger(LogInController.class.getName()).log(Level.SEVERE, null, ex);
         }
         getUsers();
-        getCustomers();
+        //getCustomers();
         //System.out.println(users.getPassword());
         userName = userField.getText();
         String password = passField.getText();

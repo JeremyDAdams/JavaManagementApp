@@ -16,7 +16,7 @@ public class JDBC {
     private static Connection connection = null;  // Connection Interface
     private static PreparedStatement preparedStatement;
 
-    public static void makeConnection() {
+    public static Connection makeConnection() {
 
         try {
             Class.forName(driver); // Locate Driver
@@ -30,6 +30,7 @@ public class JDBC {
         catch(SQLException e) {
             System.out.println("Error:" + e.getMessage());
         }
+        return connection;
     }
 
     public static Connection getConnection() {

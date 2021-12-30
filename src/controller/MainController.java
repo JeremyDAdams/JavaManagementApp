@@ -37,8 +37,11 @@ public class MainController implements Initializable {
     @FXML
     private TableColumn<Customer, String> customerNameCol;
 
+
+
     @Override
     public void initialize (URL url, ResourceBundle rb){
+
         customerTableView.setItems(getAllCustomers());
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
