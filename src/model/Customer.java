@@ -13,6 +13,7 @@ public class Customer {
     private LocalDateTime lastUpdate;
     private String lastUpdatedBy;
     private int divisionId;
+    private String country;
 
 
     public int getCustomerId() {
@@ -93,5 +94,10 @@ public class Customer {
 
     public void setDivisionId(int divisionId) {
         this.divisionId = divisionId;
+    }
+
+    public String getCountry() { return country; }
+
+    public void setCountry(String country) { this.country = country;
     }
 }

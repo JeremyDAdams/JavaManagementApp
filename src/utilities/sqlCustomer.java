@@ -37,6 +37,10 @@ public class sqlCustomer {
                 Customer customer = new Customer();
                 customer.setCustomerId(customerId);
                 customer.setCustomerName(customerName);
+                customer.setAddress(address);
+                customer.setPostalCode(postalCode);
+                customer.setPhone(phone);
+                customer.setDivisionId(divisionId);
                 customers.add(customer);
             }
         } catch (SQLException throwables) {

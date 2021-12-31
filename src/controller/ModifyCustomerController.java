@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import model.Customer;
 import utilities.JDBC;
 
 import java.io.IOException;
@@ -27,6 +28,9 @@ public class ModifyCustomerController implements Initializable {
 
     public int divId;
     public Connection conn;
+
+    @FXML
+    private TextField addIdTxt;
 
     @FXML
     private TextField addNameTxt;
@@ -48,6 +52,8 @@ public class ModifyCustomerController implements Initializable {
 
     //@Override
     public void initialize (URL url, ResourceBundle rb){
+        Customer customerSelected = MainController.customerSelected;
+        System.out.println(customerSelected.getCustomerName());
         ResultSet rs = accessDB("SELECT * FROM countries");
         try {
 
@@ -57,6 +63,10 @@ public class ModifyCustomerController implements Initializable {
         } catch (SQLException ex) {
             //Logger.getLogger(ComboBoxExampleController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        addNameTxt.setText(String.valueOf(customerSelected.getCustomerName()));
+        addAddressTxt.setText(String.valueOf(customerSelected.getAddress()));
+        addPostalTxt.setText(String.valueOf(customerSelected.getPostalCode()));
+        addPhoneTxt.setText(String.valueOf(customerSelected.getPhone()));
     }
 
     public ResultSet accessDB(String sql) {
