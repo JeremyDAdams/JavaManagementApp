@@ -30,6 +30,8 @@ import static utilities.JDBC.makeConnection;
 import static utilities.sqlCombo.getAllCountries;
 import static utilities.sqlCombo.getCountries;
 import static utilities.sqlCustomer.getAllCustomers;
+import static utilities.sqlCustomer.saveCustomer;
+
 import model.Countries;
 
 
@@ -41,6 +43,7 @@ public class AddCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
+    public int divId;
     public Connection conn;
     //conn = JDBC.makeConnection();
 
@@ -136,8 +139,29 @@ public class AddCustomerController implements Initializable {
         }
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void divisionComboSelect(ActionEvent actionEvent) {
+        addFirstLevelCombo.getValue();
+        ResultSet rs = accessDB("SELECT * FROM first_level_divisions");
+        try {
+            while (rs.next()) {
+                if(rs.getString(2).equals(addFirstLevelCombo.getValue())) {
+                    divId = rs.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+
+        }
+        System.out.println(divId);
+    }
+
+
+    public void saveBtnClick(ActionEvent actionEvent) throws SQLException {
         String name = addNameTxt.getText();
+        String address = addAddressTxt.getText();
+        String postalCode = addPostalTxt.getText();
+        String phone = addPhoneTxt.getText();
+        int divisionId = divId;
+        saveCustomer(name, address, postalCode, phone, divisionId);
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
@@ -151,4 +175,5 @@ public class AddCustomerController implements Initializable {
         JDBC.closeConnection();
         System.exit(0);
     }
+
 }
