@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.FirstLevelDivisions;
-import model.User;
 import utilities.JDBC;
-import utilities.sqlCombo;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,26 +21,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-import static utilities.JDBC.makeConnection;
-import static utilities.sqlCombo.getAllCountries;
-import static utilities.sqlCombo.getCountries;
-import static utilities.sqlCustomer.getAllCustomers;
-import static utilities.sqlCustomer.saveCustomer;
-
-import model.Countries;
-
-
-
-public class AddCustomerController implements Initializable {
-
-
-
+public class ModifyCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
     public int divId;
     public Connection conn;
-    //conn = JDBC.makeConnection();
 
     @FXML
     private TextField addNameTxt;
@@ -103,8 +84,6 @@ public class AddCustomerController implements Initializable {
     }
 
     public void countryComboSelect(ActionEvent actionEvent) {
-
-
         if(addCountryCombo.getValue().toString().equals("Canada")) {
             ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 3");
 
@@ -154,14 +133,7 @@ public class AddCustomerController implements Initializable {
         System.out.println(divId);
     }
 
-
-    public void saveBtnClick(ActionEvent actionEvent) throws SQLException {
-        String name = addNameTxt.getText();
-        String address = addAddressTxt.getText();
-        String postalCode = addPostalTxt.getText();
-        String phone = addPhoneTxt.getText();
-        int divisionId = divId;
-        saveCustomer(name, address, postalCode, phone, divisionId);
+    public void saveBtnClick(ActionEvent actionEvent) {
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
@@ -175,5 +147,4 @@ public class AddCustomerController implements Initializable {
         JDBC.closeConnection();
         System.exit(0);
     }
-
 }

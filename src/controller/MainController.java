@@ -47,7 +47,6 @@ public class MainController implements Initializable {
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
         int userId = LogInController.userId;
         System.out.println(userId + "This is from MainController");
-
     }
 
 
@@ -58,7 +57,11 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    public void custUpdateBtnClick(ActionEvent actionEvent) {
+    public void custUpdateBtnClick(ActionEvent actionEvent) throws IOException {
+        stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/ModifyCustomer.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void custDeleteBtnClick(ActionEvent actionEvent) {
