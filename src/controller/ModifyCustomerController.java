@@ -22,12 +22,19 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+import static utilities.sqlCustomer.saveCustomer;
+import static utilities.sqlCustomer.updateCustomer;
+
 public class ModifyCustomerController implements Initializable {
     Stage stage;
     Parent scene;
 
     public int divId;
     public Connection conn;
+
+    public String countryName;
+
+    Customer customerSelected = MainController.customerSelected;
 
     @FXML
     private TextField addIdTxt;
@@ -52,9 +59,12 @@ public class ModifyCustomerController implements Initializable {
 
     //@Override
     public void initialize (URL url, ResourceBundle rb){
-        Customer customerSelected = MainController.customerSelected;
+
         System.out.println(customerSelected.getCustomerName());
-        ResultSet rs = accessDB("SELECT * FROM countries");
+        ResultSet rs = null;
+
+            rs = accessDB("SELECT * FROM countries");
+
         try {
 
             while (rs.next()) {
@@ -63,10 +73,35 @@ public class ModifyCustomerController implements Initializable {
         } catch (SQLException ex) {
             //Logger.getLogger(ComboBoxExampleController.class.getName()).log(Level.SEVERE, null, ex);
         }
+        addIdTxt.setText(String.valueOf(customerSelected.getCustomerId()));
         addNameTxt.setText(String.valueOf(customerSelected.getCustomerName()));
         addAddressTxt.setText(String.valueOf(customerSelected.getAddress()));
         addPostalTxt.setText(String.valueOf(customerSelected.getPostalCode()));
         addPhoneTxt.setText(String.valueOf(customerSelected.getPhone()));
+        if(customerSelected.getCountry().equals("U.S")) {
+            addCountryCombo.getSelectionModel().select(0);
+        } else if(customerSelected.getCountry().equals("UK")) {
+            addCountryCombo.getSelectionModel().select(1);
+        } else if(customerSelected.getCountry().equals("Canada")) {
+            addCountryCombo.getSelectionModel().select(2);
+        }
+
+        try {
+            populateCountriesCombo();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
+        System.out.println(customerSelected.getDivisionId() + "hola");
+
+        if(customerSelected.getCountry().equals("U.S")) {
+            addFirstLevelCombo.getSelectionModel().select(customerSelected.getDivisionId() - 1);
+        } else if(customerSelected.getCountry().equals("UK")) {
+            addFirstLevelCombo.getSelectionModel().select(customerSelected.getDivisionId() - 101);
+        } else if(customerSelected.getCountry().equals("Canada")) {
+            addFirstLevelCombo.getSelectionModel().select(customerSelected.getDivisionId() - 60);
+        }
+
     }
 
     public ResultSet accessDB(String sql) {
@@ -93,7 +128,15 @@ public class ModifyCustomerController implements Initializable {
         return rs;
     }
 
-    public void countryComboSelect(ActionEvent actionEvent) {
+    public void countryComboSelect(ActionEvent actionEvent) throws SQLException {
+        populateCountriesCombo();
+    }
+
+    public void divisionComboSelect(ActionEvent actionEvent) throws SQLException {
+        divStringToInt();
+    }
+
+    public void populateCountriesCombo() throws SQLException {
         if(addCountryCombo.getValue().toString().equals("Canada")) {
             ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 3");
 
@@ -128,7 +171,24 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
-    public void divisionComboSelect(ActionEvent actionEvent) {
+    public int getDivInt() throws SQLException {
+
+        ResultSet rs = accessDB("SELECT * FROM first_level_divisions");
+        try {
+            while (rs.next()) {
+                if(rs.getString(2).equals(customerSelected.getDivisionId())) {
+                    divId = rs.getInt(1);
+                }
+            }
+        } catch (SQLException ex) {
+
+        }
+        System.out.println(divId);
+
+        return divId;
+    }
+
+    public int divStringToInt() throws SQLException {
         addFirstLevelCombo.getValue();
         ResultSet rs = accessDB("SELECT * FROM first_level_divisions");
         try {
@@ -141,9 +201,20 @@ public class ModifyCustomerController implements Initializable {
 
         }
         System.out.println(divId);
+
+        return divId;
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void saveBtnClick(ActionEvent actionEvent) throws SQLException {
+        String name = addNameTxt.getText();
+        String address = addAddressTxt.getText();
+        String postalCode = addPostalTxt.getText();
+        String phone = addPhoneTxt.getText();
+        int divisionId = divStringToInt();
+        int customerId = customerSelected.getCustomerId();
+
+        updateCustomer(name, address, postalCode, phone, divisionId, customerId);
+        System.out.println(divisionId);
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {

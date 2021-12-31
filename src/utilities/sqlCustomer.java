@@ -53,17 +53,12 @@ public class sqlCustomer {
             String userName = LogInController.userName;
             String saveString = "INSERT INTO customers (Customer_Name, Address, Postal_Code, Phone, Create_Date, Created_By, Last_Update, Last_Updated_By, Division_ID) " + "VALUES (?, ?, ? ,? ,NOW(),? ,NOW(), ?, ?)";
             PreparedStatement statement = connection.prepareStatement(saveString);
-            //statement.setString(1, customer.getCustomerName());
-            //statement.setString(2, customer.getAddress());
-            //statement.setString(3, customer.getPostalCode());
-            //statement.setString(4, customer.getPhone());
             statement.setString(1, name);
             statement.setString(2, address);
             statement.setString(3, postCode);
             statement.setString(4, phoneNumber);
             statement.setString(5, userName);
             statement.setString(6, userName);
-            //statement.setInt(9, customer.getDivisionId());
             statement.setInt(7, divId);
             statement.executeUpdate();
             //customers.add(customer);
@@ -72,6 +67,22 @@ public class sqlCustomer {
             e.printStackTrace();
         }
     }
+
+    public static void updateCustomer(String name, String address, String postCode, String phoneNumber, int divId, int customerId) throws SQLException {
+        String userName = LogInController.userName;
+        String saveString = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(saveString);
+        statement.setString(1, name);
+        statement.setString(2, address);
+        statement.setString(3, postCode);
+        statement.setString(4, phoneNumber);
+        statement.setString(5, userName);
+        statement.setInt(6, divId);
+        statement.setInt(7, customerId);
+        statement.executeUpdate();
+
+    }
+
     public static ObservableList<Customer> getAllCustomers() {
         return customers;
     }

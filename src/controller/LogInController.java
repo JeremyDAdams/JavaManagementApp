@@ -84,7 +84,7 @@ public class LogInController implements Initializable {
         locationLabel.setText(currentLocale.getDisplayCountry());
         logInError = rb.getString("loginerror");
 
-
+        submitButton.setDefaultButton(true);
     }
 
     public void submitBtnClick(ActionEvent actionEvent) throws IOException, SQLException {
