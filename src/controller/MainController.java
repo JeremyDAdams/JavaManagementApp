@@ -19,6 +19,7 @@ import utilities.JDBC;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 import static utilities.sqlCustomer.*;
@@ -114,7 +115,29 @@ public class MainController implements Initializable {
         }
     }
 
-    public void custDeleteBtnClick(ActionEvent actionEvent) {
+    public void custDeleteBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
+        customerSelected = customerTableView.getSelectionModel().getSelectedItem();
+        int customerId = customerSelected.getCustomerId();
+
+        if(customerSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("A customer must be selected.");
+            alert.showAndWait();
+        } else {
+            deleteCustomer(customerId);
+
+            customerTableView.getItems().clear();
+            getCustomers();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText("The selected customer has been deleted.");
+            alert.showAndWait();
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void apptAddBtnClick(ActionEvent actionEvent) {

@@ -1,5 +1,6 @@
 package utilities;
 
+import com.mysql.cj.x.protobuf.MysqlxPrepare;
 import controller.LogInController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,6 +82,13 @@ public class sqlCustomer {
         statement.setInt(7, customerId);
         statement.executeUpdate();
 
+    }
+
+    public static void deleteCustomer(int customerId) throws SQLException {
+        String deleteString = "DELETE FROM customers WHERE Customer_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(deleteString);
+        statement.setInt(1, customerId);
+        statement.executeUpdate();
     }
 
     public static ObservableList<Customer> getAllCustomers() {
