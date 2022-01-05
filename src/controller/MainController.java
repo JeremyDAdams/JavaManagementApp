@@ -29,7 +29,6 @@ import static utilities.sqlUser.users;
 
 public class MainController implements Initializable {
 
-
     Stage stage;
     Parent scene;
 
@@ -64,13 +63,34 @@ public class MainController implements Initializable {
     public TableView<Appointments> apptTableView;
 
     @FXML
+    public TableColumn<Appointments, Integer> apptIdCol;
+
+    @FXML
     public TableColumn<Appointments, String> apptTitleCol;
+
+    @FXML
+    public TableColumn<Appointments, String> apptDescCol;
+
+    @FXML
+    public TableColumn<Appointments, String> apptLocationCol;
+
+    @FXML
+    public TableColumn<Appointments, String> apptContactCol;
+
+    @FXML
+    public TableColumn<Appointments, String> apptTypeCol;
 
     @FXML
     public TableColumn<Appointments, LocalDateTime> apptStartCol;
 
     @FXML
     public TableColumn<Appointments, LocalDateTime> apptEndCol;
+
+    @FXML
+    public TableColumn<Appointments, Integer> apptCustIdCol;
+
+    @FXML
+    public TableColumn<Appointments, Integer> apptUserIdCol;
 
 
 
@@ -86,6 +106,7 @@ public class MainController implements Initializable {
         customerPostalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         customerPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
+        //apptTableView.setItems(getAllAppointments)
         int divisionId;
         for(Customer customer : customers) {
             divisionId = customer.getDivisionId();
