@@ -29,8 +29,7 @@ import java.util.ResourceBundle;
 import static utilities.JDBC.makeConnection;
 import static utilities.sqlCombo.getAllCountries;
 import static utilities.sqlCombo.getCountries;
-import static utilities.sqlCustomer.getAllCustomers;
-import static utilities.sqlCustomer.saveCustomer;
+import static utilities.sqlCustomer.*;
 
 import model.Countries;
 
@@ -155,16 +154,23 @@ public class AddCustomerController implements Initializable {
     }
 
 
-    public void saveBtnClick(ActionEvent actionEvent) throws SQLException {
+    public void saveBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
         String name = addNameTxt.getText();
         String address = addAddressTxt.getText();
         String postalCode = addPostalTxt.getText();
         String phone = addPhoneTxt.getText();
         int divisionId = divId;
         saveCustomer(name, address, postalCode, phone, divisionId);
+
+        getCustomers();
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
+        getCustomers();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         stage.setScene(new Scene(scene));

@@ -22,8 +22,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-import static utilities.sqlCustomer.saveCustomer;
-import static utilities.sqlCustomer.updateCustomer;
+import static utilities.sqlCustomer.*;
 
 public class ModifyCustomerController implements Initializable {
     Stage stage;
@@ -205,7 +204,7 @@ public class ModifyCustomerController implements Initializable {
         return divId;
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) throws SQLException {
+    public void saveBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
         String name = addNameTxt.getText();
         String address = addAddressTxt.getText();
         String postalCode = addPostalTxt.getText();
@@ -215,9 +214,18 @@ public class ModifyCustomerController implements Initializable {
 
         updateCustomer(name, address, postalCode, phone, divisionId, customerId);
         System.out.println(divisionId);
+
+        getCustomers();
+
+
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
+        getCustomers();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         stage.setScene(new Scene(scene));

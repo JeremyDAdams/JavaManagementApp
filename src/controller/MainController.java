@@ -1,5 +1,6 @@
 package controller;
 
+import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -33,7 +34,7 @@ public class MainController implements Initializable {
     public String country;
 
     @FXML
-    private TableView<Customer> customerTableView;
+    public TableView<Customer> customerTableView;
 
     @FXML
     private TableColumn<Customer, Integer> customerIdCol;
@@ -94,6 +95,7 @@ public class MainController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+        customerTableView.getItems().clear();
     }
 
     public void custUpdateBtnClick(ActionEvent actionEvent) throws IOException {
@@ -108,6 +110,7 @@ public class MainController implements Initializable {
             scene = FXMLLoader.load(getClass().getResource("/view/ModifyCustomer.fxml"));
             stage.setScene(new Scene(scene));
             stage.show();
+            customerTableView.getItems().clear();
         }
     }
 
