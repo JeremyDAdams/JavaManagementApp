@@ -13,6 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
+import model.Appointments;
 import model.Customer;
 import model.User;
 import utilities.JDBC;
@@ -20,6 +21,7 @@ import utilities.JDBC;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ResourceBundle;
 
 import static utilities.sqlCustomer.*;
@@ -57,6 +59,18 @@ public class MainController implements Initializable {
 
     @FXML
     private TableColumn<Customer, Integer> customerDivCol;
+
+    @FXML
+    public TableView<Appointments> apptTableView;
+
+    @FXML
+    public TableColumn<Appointments, String> apptTitleCol;
+
+    @FXML
+    public TableColumn<Appointments, LocalDateTime> apptStartCol;
+
+    @FXML
+    public TableColumn<Appointments, LocalDateTime> apptEndCol;
 
 
 
@@ -152,5 +166,14 @@ public class MainController implements Initializable {
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);
+    }
+
+    public void apptAllRadioClick(ActionEvent actionEvent) {
+    }
+
+    public void apptMonthRadioClick(ActionEvent actionEvent) {
+    }
+
+    public void apptWeekRadioClick(ActionEvent actionEvent) {
     }
 }

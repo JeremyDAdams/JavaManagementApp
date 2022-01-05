@@ -2,17 +2,26 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane prefHeight="732.0" prefWidth="1472.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
+<AnchorPane prefHeight="732.0" prefWidth="1690.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainController">
    <children>
-      <TableView fx:id="apptTableView" layoutX="825.0" layoutY="81.0" prefHeight="414.0" prefWidth="483.0">
+      <TableView fx:id="apptTableView" layoutX="756.0" layoutY="81.0" prefHeight="414.0" prefWidth="913.0">
         <columns>
-          <TableColumn fx:id="apptTitleCol" prefWidth="253.0" text="Title" />
-          <TableColumn fx:id="apptStartCol" minWidth="0.0" prefWidth="103.0" text="Start" />
-            <TableColumn fx:id="apptEndCol" minWidth="0.0" prefWidth="126.0" text="End" />
+            <TableColumn fx:id="apptIdCol" prefWidth="41.0" text="ID" />
+          <TableColumn fx:id="apptTitleCol" prefWidth="98.0" text="Title" />
+            <TableColumn fx:id="apptDescCol" prefWidth="105.0" text="Desc" />
+            <TableColumn fx:id="apptLocationCol" prefWidth="82.0" text="Location" />
+            <TableColumn fx:id="apptContactCol" prefWidth="104.0" text="Contact" />
+            <TableColumn fx:id="apptTypeCol" prefWidth="91.0" text="Type" />
+          <TableColumn fx:id="apptStartCol" minWidth="0.0" prefWidth="128.0" text="Start" />
+            <TableColumn fx:id="apptEndCol" minWidth="0.0" prefWidth="154.0" text="End" />
+            <TableColumn fx:id="apptCustIdCol" prefWidth="58.0" text="Cust ID" />
+            <TableColumn fx:id="apptUserIdCol" prefWidth="51.0" text="User ID" />
         </columns>
       </TableView>
       <TableView fx:id="customerTableView" layoutX="91.0" layoutY="81.0" prefHeight="414.0" prefWidth="624.0">
@@ -32,8 +41,15 @@
       <Button layoutX="897.0" layoutY="528.0" mnemonicParsing="false" onAction="#apptAddBtnClick" text="Add" />
       <Button layoutX="1055.0" layoutY="528.0" mnemonicParsing="false" onAction="#apptUpdateBtnClick" text="Update" />
       <Button layoutX="1221.0" layoutY="528.0" mnemonicParsing="false" onAction="#apptDeleteBtnClick" text="Delete" />
-      <Button fx:id="exitButton" layoutX="1144.0" layoutY="573.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
+      <Button fx:id="exitButton" layoutX="1544.0" layoutY="641.0" mnemonicParsing="false" onAction="#exitBtnClick" prefHeight="38.0" prefWidth="76.0" text="Exit" />
       <Label layoutX="304.0" layoutY="43.0" text="Customers" />
       <Label layoutX="1045.0" layoutY="43.0" text="Appointments" />
+      <RadioButton fx:id="allApptRadio" layoutX="1338.0" layoutY="532.0" mnemonicParsing="false" onAction="#apptAllRadioClick" text="All Appointments">
+         <toggleGroup>
+            <ToggleGroup fx:id="appointment" />
+         </toggleGroup>
+      </RadioButton>
+      <RadioButton fx:id="monthApptRadio" layoutX="1338.0" layoutY="577.0" mnemonicParsing="false" onAction="#apptMonthRadioClick" text="Current Month" toggleGroup="$appointment" />
+      <RadioButton fx:id="weekApptRadio" layoutX="1338.0" layoutY="624.0" mnemonicParsing="false" onAction="#apptWeekRadioClick" text="Current Week" toggleGroup="$appointment" />
    </children>
 </AnchorPane>
