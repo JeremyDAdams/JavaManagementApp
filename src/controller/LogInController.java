@@ -12,6 +12,7 @@ import javafx.scene.control.Label;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.ZoneId;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.FileHandler;
@@ -29,6 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static utilities.sqlAppointments.getAppointments;
 import static utilities.sqlCustomer.getCustomers;
 import static utilities.sqlUser.getUsers;
 import static utilities.sqlUser.users;
@@ -72,8 +74,10 @@ public class LogInController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         this.rb = rb;
         System.out.println(Locale.getDefault());
+        System.out.println(ZoneId.systemDefault());
 
         getCustomers();
+        getAppointments();
 
         Locale currentLocale = Locale.getDefault();
         passwordLabel.setText(rb.getString("password"));

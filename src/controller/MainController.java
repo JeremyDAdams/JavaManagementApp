@@ -14,16 +14,21 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointments;
+import model.Contacts;
 import model.Customer;
 import model.User;
 import utilities.JDBC;
-
+import java.time.LocalDateTime;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
-
+import java.sql.Timestamp;
+import static utilities.sqlAppointments.*;
 import static utilities.sqlCustomer.*;
 import static utilities.sqlUser.users;
 
@@ -33,6 +38,7 @@ public class MainController implements Initializable {
     Parent scene;
 
     public static Customer customerSelected;
+    public static Appointments appointmentSelected;
     public String country;
 
     @FXML
@@ -81,7 +87,7 @@ public class MainController implements Initializable {
     public TableColumn<Appointments, String> apptTypeCol;
 
     @FXML
-    public TableColumn<Appointments, LocalDateTime> apptStartCol;
+    public TableColumn<Appointments, ZonedDateTime> apptStartCol;
 
     @FXML
     public TableColumn<Appointments, LocalDateTime> apptEndCol;
@@ -106,7 +112,6 @@ public class MainController implements Initializable {
         customerPostalCol.setCellValueFactory(new PropertyValueFactory<>("postalCode"));
         customerPhoneCol.setCellValueFactory(new PropertyValueFactory<>("phone"));
 
-        //apptTableView.setItems(getAllAppointments)
         int divisionId;
         for(Customer customer : customers) {
             divisionId = customer.getDivisionId();
@@ -122,9 +127,71 @@ public class MainController implements Initializable {
         customerCountryCol.setCellValueFactory(new PropertyValueFactory<>("country"));
         customerDivCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         int userId = LogInController.userId;
+
+        apptTableView.setItems(getAllAppointments());
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+
+        try {
+            getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String contact1 = null;
+        for (Appointments appointment : appointments) {
+            for (Contacts contact : contacts) {
+                if (appointment.getContactId() == contact.getContactId()) {
+                    contact1 = contact.getContactName();
+                }
+                appointment.setContact(contact1);
+
+            }
+        }
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+
+
+        apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
+
         System.out.println(userId + "This is from MainController");
+
+        Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
+        LocalDateTime ldt = ts.toLocalDateTime();
+        ZonedDateTime zdt = ldt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+        ZonedDateTime utczdt = zdt.withZoneSameInstant(ZoneId.of("UTC"));
+        LocalDateTime ldtIn = utczdt.toLocalDateTime();
+
+        ZonedDateTime zdtOut = ldtIn.atZone(ZoneId.of("UTC"));
+        ZonedDateTime zdtOutToLocalTZ = zdtOut.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
+        LocalDateTime ldtOutFinal = zdtOutToLocalTZ.toLocalDateTime();
+
+        System.out.println(ts);
+        System.out.println(ldt);
+        System.out.println(zdt);
+        System.out.println(utczdt);
+        System.out.println(ldtIn);
+        System.out.println(zdtOut);
+        System.out.println(zdtOutToLocalTZ);
+        System.out.println(ldtOutFinal);
+        /*for (Appointments appointment : appointments) {
+            LocalDateTime test = appointment.getStart();
+            LocalDateTime test2 = test.toLocalDateTime();
+            System.out.println(test.toLocalDateTime());
+        }*/
     }
 
+    public static void convertTime() {
+        for (Appointments appointment : appointments) {
+            //LocalDateTime ts = appointment.getStart();
+            //ZonedDateTime zdt = ts.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+            //appointment.setStart(zdt);
+        }
+    }
 
     public void custAddBtnClick(ActionEvent actionEvent) throws IOException {
         stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
