@@ -10,7 +10,7 @@ public class Appointments {
     private String location;
     private String contact;
     private String type;
-    private ZonedDateTime start;
+    private LocalDateTime start;
     private LocalDateTime end;
     private LocalDateTime createDate;
     private String createdBy;
@@ -68,11 +68,11 @@ public class Appointments {
         this.type = type;
     }
 
-    public ZonedDateTime getStart() {
+    public LocalDateTime getStart() {
         return start;
     }
 
-    public void setStart(ZonedDateTime start) {
+    public void setStart(LocalDateTime start) {
         this.start = start;
     }
 

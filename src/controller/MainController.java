@@ -160,24 +160,7 @@ public class MainController implements Initializable {
 
         System.out.println(userId + "This is from MainController");
 
-        Timestamp ts = Timestamp.valueOf(LocalDateTime.now());
-        LocalDateTime ldt = ts.toLocalDateTime();
-        ZonedDateTime zdt = ldt.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
-        ZonedDateTime utczdt = zdt.withZoneSameInstant(ZoneId.of("UTC"));
-        LocalDateTime ldtIn = utczdt.toLocalDateTime();
 
-        ZonedDateTime zdtOut = ldtIn.atZone(ZoneId.of("UTC"));
-        ZonedDateTime zdtOutToLocalTZ = zdtOut.withZoneSameInstant(ZoneId.of(ZoneId.systemDefault().toString()));
-        LocalDateTime ldtOutFinal = zdtOutToLocalTZ.toLocalDateTime();
-
-        System.out.println(ts);
-        System.out.println(ldt);
-        System.out.println(zdt);
-        System.out.println(utczdt);
-        System.out.println(ldtIn);
-        System.out.println(zdtOut);
-        System.out.println(zdtOutToLocalTZ);
-        System.out.println(ldtOutFinal);
         /*for (Appointments appointment : appointments) {
             LocalDateTime test = appointment.getStart();
             LocalDateTime test2 = test.toLocalDateTime();
@@ -242,7 +225,12 @@ public class MainController implements Initializable {
         }
     }
 
-    public void apptAddBtnClick(ActionEvent actionEvent) {
+    public void apptAddBtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+        apptTableView.getItems().clear();
     }
 
     public void apptUpdateBtnClick(ActionEvent actionEvent) {

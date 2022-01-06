@@ -35,20 +35,21 @@ public class sqlAppointments {
                 String location = resultSet.getString("Location");
                 String contact = null;
                 String type = resultSet.getString("Type");
-                LocalDateTime startDate = resultSet.getObject("Start", LocalDateTime.class);
-                LocalDateTime endDate = resultSet.getObject("End", LocalDateTime.class);
+                LocalDateTime startDate = resultSet.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDate = resultSet.getTimestamp("End").toLocalDateTime();
                 int customerId = resultSet.getInt("Customer_ID");
                 int userId = resultSet.getInt("User_ID");
                 int contactId = resultSet.getInt("Contact_ID");
 
+                System.out.println(resultSet.getTimestamp("Start"));
                 Appointments appointment = new Appointments();
                 appointment.setAppointmentId(appointmentId);
                 appointment.setTitle(title);
                 appointment.setDescription(description);
                 appointment.setLocation(location);
                 appointment.setType(type);
-                ZonedDateTime startConverted = startDate.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
-                appointment.setStart(startConverted);
+                //ZonedDateTime startConverted = startDate.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
+                appointment.setStart(startDate);
                 appointment.setEnd(endDate);
                 appointment.setCustomerId(customerId);
                 appointment.setUserId(userId);
