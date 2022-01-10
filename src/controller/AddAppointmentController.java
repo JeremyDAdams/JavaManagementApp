@@ -125,7 +125,7 @@ public class AddAppointmentController implements Initializable {
         LocalDateTime startLDT = startTime.atDate(date);
         Timestamp start = Timestamp.valueOf(startLDT);
 
-        String endTimeString = startCombo.getValue().toString();
+        String endTimeString = endCombo.getValue().toString();
         LocalTime endTime = LocalTime.parse(endTimeString);
         LocalDateTime endLDT = endTime.atDate(date);
         Timestamp end = Timestamp.valueOf(endLDT);
