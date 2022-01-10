@@ -98,6 +98,13 @@ public class sqlAppointments {
         }
     }
 
+    public static void deleteAppointment(int apptId) throws SQLException {
+        String deleteString = "DELETE FROM appointments WHERE Appointment_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(deleteString);
+        statement.setInt(1, apptId);
+        statement.executeUpdate();
+    }
+
     public static ObservableList<Contacts> getAllContacts() {
         return contacts;
     }

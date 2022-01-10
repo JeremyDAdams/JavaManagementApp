@@ -236,7 +236,31 @@ public class MainController implements Initializable {
     public void apptUpdateBtnClick(ActionEvent actionEvent) {
     }
 
-    public void apptDeleteBtnClick(ActionEvent actionEvent) {
+    public void apptDeleteBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
+        appointmentSelected = apptTableView.getSelectionModel().getSelectedItem();
+        int apptId = appointmentSelected.getAppointmentId();
+
+        if(appointmentSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("An appointment must be selected.");
+            alert.showAndWait();
+        } else {
+            deleteAppointment(apptId);
+
+            apptTableView.getItems().clear();
+            getAppointments();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation");
+            alert.setContentText(
+                    "Appointment with ID: " + appointmentSelected.getAppointmentId() +
+                            "and type: " + appointmentSelected.getType() + " has been deleted.");
+            alert.showAndWait();
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void exitBtnClick(ActionEvent actionEvent) {
