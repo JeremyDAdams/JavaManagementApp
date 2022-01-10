@@ -30,7 +30,7 @@
         <Button fx:id="exitButton" layoutX="814.0" layoutY="569.0" mnemonicParsing="false" onAction="#exitBtnClick" text="Exit" />
         <Button fx:id="backButton" layoutX="738.0" layoutY="569.0" mnemonicParsing="false" onAction="#backBtnClick" text="Back" />
         <Button fx:id="saveButton" layoutX="627.0" layoutY="569.0" mnemonicParsing="false" onAction="#saveBtnClick" text="Save" />
-      <Label layoutX="41.0" layoutY="319.0" text="Costomer ID" />
+      <Label layoutX="41.0" layoutY="319.0" text="Customer ID" />
       <Label layoutX="44.0" layoutY="369.0" text="User ID" />
       <TextField fx:id="addCustIdTxt" layoutX="121.0" layoutY="315.0" />
       <TextField fx:id="addUserIdTxt" layoutX="119.0" layoutY="365.0" />

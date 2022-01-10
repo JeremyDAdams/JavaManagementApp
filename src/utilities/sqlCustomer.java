@@ -85,8 +85,13 @@ public class sqlCustomer {
     }
 
     public static void deleteCustomer(int customerId) throws SQLException {
-        String deleteString = "DELETE FROM customers WHERE Customer_ID = ?";
-        PreparedStatement statement = connection.prepareStatement(deleteString);
+        String deleteRelatedAppt = "DELETE FROM appointments WHERE Customer_ID = ?";
+        String deleteCustomerString = "DELETE FROM customers WHERE Customer_ID = ?";
+
+        PreparedStatement statement0 = connection.prepareStatement(deleteRelatedAppt);
+        statement0.setInt(1, customerId);
+        statement0.executeUpdate();
+        PreparedStatement statement = connection.prepareStatement(deleteCustomerString);
         statement.setInt(1, customerId);
         statement.executeUpdate();
     }

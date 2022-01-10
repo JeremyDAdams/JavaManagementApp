@@ -212,11 +212,15 @@ public class MainController implements Initializable {
         } else {
             deleteCustomer(customerId);
 
+            apptTableView.getItems().clear();
+            getAppointments();
+
             customerTableView.getItems().clear();
             getCustomers();
+
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation");
-            alert.setContentText("The selected customer has been deleted.");
+            alert.setContentText("The selected customer and related appointments have been deleted.");
             alert.showAndWait();
             Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
