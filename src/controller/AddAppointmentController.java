@@ -18,6 +18,7 @@ import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
@@ -65,7 +66,7 @@ public class AddAppointmentController implements Initializable {
     Parent scene;
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedTime(FormatStyle.SHORT);
-    ObservableList<String> times = FXCollections.observableArrayList();
+    ObservableList<LocalTime> times = FXCollections.observableArrayList();
     ObservableList<String> contactNames = FXCollections.observableArrayList();
 
 
@@ -93,19 +94,24 @@ public class AddAppointmentController implements Initializable {
     }
 
     public void populateTimeCombos() {
-        LocalTime time = LocalTime.MIN;
+        /*LocalTime time = LocalTime.MIN;
         for(int i = 0; i <=47; i++) {
             times.add(time.format(formatter));
+            time = time.plusMinutes(30);
+        }*/
+        LocalTime time = LocalTime.MIN;
+        for(int i = 0; i <=47; i++) {
+            times.add(time);
             time = time.plusMinutes(30);
         }
     }
 
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void saveBtnClick(ActionEvent actionEvent) throws IOException, SQLException {
         String title = addTitleTxt.getText();
         String description = addDescTxt.getText();
         String location = addLocationTxt.getText();
-        int contactId;
+        int contactId = 1000;
         for (Contacts contact : contacts) {
             if (contact.getContactName() == contactCombo.getValue().toString()) {
                 contactId = contact.getContactId();
@@ -113,11 +119,27 @@ public class AddAppointmentController implements Initializable {
         }
         String type = addTypeTxt.getText();
         LocalDate date = datePicker.getValue();
+
         String startTimeString = startCombo.getValue().toString();
+        LocalTime startTime = LocalTime.parse(startTimeString);
+        LocalDateTime startLDT = startTime.atDate(date);
+        Timestamp start = Timestamp.valueOf(startLDT);
+
         String endTimeString = startCombo.getValue().toString();
-        int userId = LogInController.userId;
+        LocalTime endTime = LocalTime.parse(endTimeString);
+        LocalDateTime endLDT = endTime.atDate(date);
+        Timestamp end = Timestamp.valueOf(endLDT);
 
+        int custId = Integer.parseInt(addCustIdTxt.getText());
+        int userId = Integer.parseInt(addUserIdTxt.getText());
 
+        saveAppointment(title, description, location, contactId, type, start, end, custId, userId);
+
+        getAppointments();
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {

@@ -1,17 +1,13 @@
 package utilities;
 
+import controller.LogInController;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import model.Appointments;
 import model.Contacts;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
+import java.sql.*;
+import java.time.*;
 
 public class sqlAppointments {
     private static Connection connection = JDBC.getConnection();
@@ -78,7 +74,28 @@ public class sqlAppointments {
             contact.setContactName(contactName);
             contacts.add(contact);
         }
+    }
 
+    public static void saveAppointment(String title, String description, String location, int contactId, String type, Timestamp start, Timestamp end, int custId, int userId) throws SQLException {
+        try {
+            String userName = LogInController.userName;
+            String saveString = "INSERT INTO appointments (Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) " + "VALUES (?, ?, ? ,?, ?, ? ,NOW(),? ,NOW(), ?, ?, ?, ?)";
+            PreparedStatement statement = connection.prepareStatement(saveString);
+            statement.setString(1, title);
+            statement.setString(2, description);
+            statement.setString(3, location);
+            statement.setString(4, type);
+            statement.setTimestamp(5, start);
+            statement.setTimestamp(6, end);
+            statement.setString(7, userName);
+            statement.setString(8, userName);
+            statement.setInt(9, custId);
+            statement.setInt(10, userId);
+            statement.setInt(11, contactId);
+            statement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public static ObservableList<Contacts> getAllContacts() {
