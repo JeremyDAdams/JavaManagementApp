@@ -77,6 +77,7 @@ public class ModifyCustomerController implements Initializable {
         addAddressTxt.setText(String.valueOf(customerSelected.getAddress()));
         addPostalTxt.setText(String.valueOf(customerSelected.getPostalCode()));
         addPhoneTxt.setText(String.valueOf(customerSelected.getPhone()));
+
         if(customerSelected.getCountry().equals("U.S")) {
             addCountryCombo.getSelectionModel().select(0);
         } else if(customerSelected.getCountry().equals("UK")) {

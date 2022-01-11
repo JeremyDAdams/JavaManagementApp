@@ -103,8 +103,6 @@ public class MainController implements Initializable {
     @Override
     public void initialize (URL url, ResourceBundle rb){
 
-
-
         customerTableView.setItems(getAllCustomers());
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -237,7 +235,21 @@ public class MainController implements Initializable {
         apptTableView.getItems().clear();
     }
 
-    public void apptUpdateBtnClick(ActionEvent actionEvent) {
+    public void apptUpdateBtnClick(ActionEvent actionEvent) throws IOException {
+
+        appointmentSelected = apptTableView.getSelectionModel().getSelectedItem();
+        if(appointmentSelected == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("An appointment must be selected.");
+            alert.showAndWait();
+        } else {
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/ModifyAppointment.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+            apptTableView.getItems().clear();
+        }
     }
 
     public void apptDeleteBtnClick(ActionEvent actionEvent) throws SQLException, IOException {

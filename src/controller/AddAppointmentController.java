@@ -81,18 +81,6 @@ public class AddAppointmentController implements Initializable {
         contactCombo.setItems(contactNames);
     }
 
-    public void contactComboSelect(ActionEvent actionEvent) {
-    }
-
-    public void datePickerSelect(ActionEvent actionEvent) {
-    }
-
-    public void startComboSelect(ActionEvent actionEvent) {
-    }
-
-    public void endComboSelect(ActionEvent actionEvent) {
-    }
-
     public void populateTimeCombos() {
         /*LocalTime time = LocalTime.MIN;
         for(int i = 0; i <=47; i++) {
