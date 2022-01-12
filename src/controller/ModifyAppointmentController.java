@@ -19,11 +19,14 @@ import utilities.JDBC;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
-import static utilities.sqlAppointments.contacts;
-import static utilities.sqlAppointments.getAppointments;
+import static utilities.sqlAppointments.*;
 
 public class ModifyAppointmentController implements Initializable {
 
@@ -100,7 +103,41 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
-    public void saveBtnClick(ActionEvent actionEvent) {
+    public void saveBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
+
+        String title = modifyTitleTxt.getText();
+        String description = modifyDescTxt.getText();
+        String location = modifyLocationTxt.getText();
+        int contactId = 1000;
+        for (Contacts contact : contacts) {
+            if (contact.getContactName() == contactCombo.getValue().toString()) {
+                contactId = contact.getContactId();
+            }
+        }
+        String type = modifyTypeTxt.getText();
+        LocalDate date = datePicker.getValue();
+
+        String startTimeString = startCombo.getValue().toString();
+        LocalTime startTime = LocalTime.parse(startTimeString);
+        LocalDateTime startLDT = startTime.atDate(date);
+        Timestamp start = Timestamp.valueOf(startLDT);
+
+        String endTimeString = endCombo.getValue().toString();
+        LocalTime endTime = LocalTime.parse(endTimeString);
+        LocalDateTime endLDT = endTime.atDate(date);
+        Timestamp end = Timestamp.valueOf(endLDT);
+
+        int custId = Integer.parseInt(modifyCustIdTxt.getText());
+        int userId = Integer.parseInt(modifyUserIdTxt.getText());
+        int apptId = Integer.parseInt(modifyIdTxt.getText());
+
+        modifyAppointment(title, description, location, contactId, type, start, end, custId, userId, apptId);
+
+        getAppointments();
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {

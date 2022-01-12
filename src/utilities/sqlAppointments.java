@@ -57,6 +57,7 @@ public class sqlAppointments {
             throwables.printStackTrace();
         }
     }
+
     public static void getContacts() throws SQLException {
 
         statement = connection.createStatement();
@@ -96,6 +97,30 @@ public class sqlAppointments {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    public static void modifyAppointment(String title, String description, String location, int contactId, String type, Timestamp start, Timestamp end, int custId, int userId, int apptId) throws SQLException {
+        //String saveString = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?,
+        // Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ?
+        // WHERE Customer_ID = ?";
+        String userName = LogInController.userName;
+        String saveString = "UPDATE appointments " +
+                "SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +
+                "Last_Update = NOW(), Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_Id = ? " +
+                "WHERE Appointment_ID = ?";
+        PreparedStatement statement = connection.prepareStatement(saveString);
+        statement.setString(1, title);
+        statement.setString(2, description);
+        statement.setString(3, location);
+        statement.setString(4, type);
+        statement.setTimestamp(5, start);
+        statement.setTimestamp(6, end);
+        statement.setString(7, userName);
+        statement.setInt(8, custId);
+        statement.setInt(9, userId);
+        statement.setInt(10, contactId);
+        statement.setInt(11, apptId);
+        statement.executeUpdate();
     }
 
     public static void deleteAppointment(int apptId) throws SQLException {
