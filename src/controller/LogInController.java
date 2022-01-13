@@ -30,6 +30,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import static utilities.Validation.logInAppointmentAlert;
 import static utilities.sqlAppointments.getAppointments;
 import static utilities.sqlCustomer.getCustomers;
 import static utilities.sqlUser.getUsers;
@@ -129,6 +130,7 @@ public class LogInController implements Initializable {
             //log.info("Login successful.");
             System.out.println(" Hello there " + userName);
             System.out.println(" Hey there " + userId);
+            logInAppointmentAlert();
             stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
             stage.setScene(new Scene(scene));

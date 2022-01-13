@@ -102,7 +102,7 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize (URL url, ResourceBundle rb){
-
+        appointments.clear();
         customerTableView.setItems(getAllCustomers());
         customerIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         customerNameCol.setCellValueFactory(new PropertyValueFactory<>("customerName"));
@@ -126,6 +126,7 @@ public class MainController implements Initializable {
         customerDivCol.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
         int userId = LogInController.userId;
 
+        getAppointments();
         apptTableView.setItems(getAllAppointments());
         apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
         apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));

@@ -135,19 +135,20 @@ public class ModifyAppointmentController implements Initializable {
         int userId = Integer.parseInt(modifyUserIdTxt.getText());
         int apptId = Integer.parseInt(modifyIdTxt.getText());
 
+        boolean boolTest = validBusinessHours(startLDT, endLDT, date);
+        System.out.println(boolTest);
         if (!(validBusinessHours(startLDT, endLDT, date))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Appointment times must be between 8:00 and 22:00 EST");
             alert.showAndWait();
-        } else if (!(noAppointmentOverlap(startLDT, endLDT, custId))) {
+        } else if (!(noAppointmentOverlap(startLDT, endLDT, custId, apptId))) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
             alert.setContentText("Appointment time must not overlap with existing appointment for this customer.");
             alert.showAndWait();
         } else {
             modifyAppointment(title, description, location, contactId, type, start, end, custId, userId, apptId);
-
             getAppointments();
             Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
