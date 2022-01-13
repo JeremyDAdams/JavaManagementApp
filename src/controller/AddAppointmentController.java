@@ -73,6 +73,13 @@ public class AddAppointmentController implements Initializable {
     public void initialize (URL url, ResourceBundle rb){
         populateTimeCombos();
 
+        contacts.clear();
+        try {
+            getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+
         for (Contacts contact : contacts) {
             contactNames.add(contact.getContactName());
         }

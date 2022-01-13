@@ -72,6 +72,12 @@ public class ModifyAppointmentController implements Initializable {
     public void initialize (URL url, ResourceBundle rb) {
         populateTimeCombos();
 
+        contacts.clear();
+        try {
+            getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
         for (Contacts contact : contacts) {
             contactNames.add(contact.getContactName());
         }
@@ -134,6 +140,11 @@ public class ModifyAppointmentController implements Initializable {
             alert.setTitle("Error");
             alert.setContentText("Appointment times must be between 8:00 and 22:00 EST");
             alert.showAndWait();
+        } else if (!(noAppointmentOverlap(startLDT, endLDT, custId))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Appointment time must not overlap with existing appointment for this customer.");
+            alert.showAndWait();
         } else {
             modifyAppointment(title, description, location, contactId, type, start, end, custId, userId, apptId);
 
@@ -147,6 +158,7 @@ public class ModifyAppointmentController implements Initializable {
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         getAppointments();
+        contactCombo.setItems(FXCollections.observableArrayList());
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         stage.setScene(new Scene(scene));

@@ -44,7 +44,6 @@ public class sqlAppointments {
                 appointment.setDescription(description);
                 appointment.setLocation(location);
                 appointment.setType(type);
-                //ZonedDateTime startConverted = startDate.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
                 appointment.setStart(startDate);
                 appointment.setEnd(endDate);
                 appointment.setCustomerId(customerId);
@@ -62,8 +61,6 @@ public class sqlAppointments {
 
         statement = connection.createStatement();
         ResultSet resultSet1 = statement.executeQuery(contactsQuery);
-
-        getAllAppointments();
 
         while (resultSet1.next()) {
             int contactId = resultSet1.getInt("Contact_ID");
@@ -100,9 +97,6 @@ public class sqlAppointments {
     }
 
     public static void modifyAppointment(String title, String description, String location, int contactId, String type, Timestamp start, Timestamp end, int custId, int userId, int apptId) throws SQLException {
-        //String saveString = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?,
-        // Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ?
-        // WHERE Customer_ID = ?";
         String userName = LogInController.userName;
         String saveString = "UPDATE appointments " +
                 "SET Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, " +

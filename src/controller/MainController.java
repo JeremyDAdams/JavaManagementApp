@@ -144,7 +144,6 @@ public class MainController implements Initializable {
                     contact1 = contact.getContactName();
                 }
                 appointment.setContact(contact1);
-
             }
         }
         apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
