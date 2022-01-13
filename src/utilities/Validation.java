@@ -17,4 +17,7 @@ public class Validation {
             return true;
         }
     }
+    public static boolean noAppointmentOverlap() {
+        return true;
+    }
 }
