@@ -8,10 +8,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
@@ -26,6 +23,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.ResourceBundle;
 
+import static utilities.Validation.*;
 import static utilities.sqlAppointments.*;
 
 public class ModifyAppointmentController implements Initializable {
@@ -131,13 +129,20 @@ public class ModifyAppointmentController implements Initializable {
         int userId = Integer.parseInt(modifyUserIdTxt.getText());
         int apptId = Integer.parseInt(modifyIdTxt.getText());
 
-        modifyAppointment(title, description, location, contactId, type, start, end, custId, userId, apptId);
+        if (!(validBusinessHours(startLDT, endLDT, date))) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("Appointment times must be between 8:00 and 22:00 EST");
+            alert.showAndWait();
+        } else {
+            modifyAppointment(title, description, location, contactId, type, start, end, custId, userId, apptId);
 
-        getAppointments();
-        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
-        scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
-        stage.setScene(new Scene(scene));
-        stage.show();
+            getAppointments();
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
+            stage.setScene(new Scene(scene));
+            stage.show();
+        }
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
