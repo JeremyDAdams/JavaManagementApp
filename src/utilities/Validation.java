@@ -66,7 +66,7 @@ public class Validation {
                 }
             }
         }
-        if (hasAppointment = true) {
+        if (hasAppointment == true) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Alert");
             alert.setContentText("You have an appointment, ID: " + nearAppointmentId + " start time and date: " + nearAppointmentDT);
