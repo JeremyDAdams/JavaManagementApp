@@ -31,6 +31,7 @@ import java.sql.Timestamp;
 import static utilities.sqlAppointments.*;
 import static utilities.sqlCustomer.*;
 import static utilities.sqlUser.users;
+import controller.ReportTwoController;
 
 public class MainController implements Initializable {
 
@@ -40,6 +41,7 @@ public class MainController implements Initializable {
     public static Customer customerSelected;
     public static Appointments appointmentSelected;
     public String country;
+
 
     @FXML
     public TableView<Customer> customerTableView;
@@ -87,7 +89,7 @@ public class MainController implements Initializable {
     public TableColumn<Appointments, String> apptTypeCol;
 
     @FXML
-    public TableColumn<Appointments, ZonedDateTime> apptStartCol;
+    public TableColumn<Appointments, LocalDateTime> apptStartCol;
 
     @FXML
     public TableColumn<Appointments, LocalDateTime> apptEndCol;
@@ -97,6 +99,7 @@ public class MainController implements Initializable {
 
     @FXML
     public TableColumn<Appointments, Integer> apptUserIdCol;
+
 
 
 
@@ -147,10 +150,9 @@ public class MainController implements Initializable {
                 appointment.setContact(contact1);
             }
         }
+
         apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
         apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
-
-
         apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
         apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
         apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -159,11 +161,7 @@ public class MainController implements Initializable {
         System.out.println(userId + "This is from MainController");
 
 
-        /*for (Appointments appointment : appointments) {
-            LocalDateTime test = appointment.getStart();
-            LocalDateTime test2 = test.toLocalDateTime();
-            System.out.println(test.toLocalDateTime());
-        }*/
+
     }
 
     public static void convertTime() {
@@ -291,5 +289,18 @@ public class MainController implements Initializable {
     }
 
     public void apptWeekRadioClick(ActionEvent actionEvent) {
+    }
+
+    public void report1BtnClick(ActionEvent actionEvent) {
+    }
+
+    public void report2BtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/ReportTwo.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
+    }
+
+    public void report3BtnClick(ActionEvent actionEvent) {
     }
 }

@@ -15,6 +15,9 @@ public class sqlAppointments {
     static String appointmentsQuery = "SELECT * FROM appointments";
     static String contactsQuery = "SELECT * FROM contacts";
     public static ObservableList<Appointments> appointments = FXCollections.observableArrayList();
+    public static ObservableList<Appointments> anikaAppointments = FXCollections.observableArrayList();
+    public static ObservableList<Appointments> danielAppointments = FXCollections.observableArrayList();
+    public static ObservableList<Appointments> liAppointments = FXCollections.observableArrayList();
     public static ObservableList<Contacts> contacts = FXCollections.observableArrayList();
 
 
@@ -51,6 +54,13 @@ public class sqlAppointments {
                 appointment.setContactId(contactId);
 
                 appointments.add(appointment);
+                if(appointment.getContactId() == 1) {
+                    anikaAppointments.add(appointment);
+                } else if(appointment.getContactId() == 2) {
+                    danielAppointments.add(appointment);
+                } else if(appointment.getContactId() == 3) {
+                    liAppointments.add(appointment);
+                }
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
@@ -130,5 +140,17 @@ public class sqlAppointments {
 
     public static ObservableList<Appointments> getAllAppointments() {
         return appointments;
+    }
+
+    public static ObservableList<Appointments> getAnikaAppointments() {
+        return anikaAppointments;
+    }
+
+    public static ObservableList<Appointments> getDanielAppointments() {
+        return danielAppointments;
+    }
+
+    public static ObservableList<Appointments> getLiAppointments() {
+        return liAppointments;
     }
 }
