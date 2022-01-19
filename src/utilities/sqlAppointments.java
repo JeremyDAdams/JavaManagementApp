@@ -54,6 +54,52 @@ public class sqlAppointments {
                 appointment.setContactId(contactId);
 
                 appointments.add(appointment);
+                /*
+                if(appointment.getContactId() == 1) {
+                    anikaAppointments.add(appointment);
+                } else if(appointment.getContactId() == 2) {
+                    danielAppointments.add(appointment);
+                } else if(appointment.getContactId() == 3) {
+                    liAppointments.add(appointment);
+                }*/
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void getAppointments2() {
+        try {
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(appointmentsQuery);
+
+            while (resultSet.next()) {
+                int appointmentId = resultSet.getInt("Appointment_ID");
+                String title = resultSet.getString("Title");
+                String description = resultSet.getString("Description");
+                String location = resultSet.getString("Location");
+                String contact = null;
+                String type = resultSet.getString("Type");
+                LocalDateTime startDate = resultSet.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDate = resultSet.getTimestamp("End").toLocalDateTime();
+                int customerId = resultSet.getInt("Customer_ID");
+                int userId = resultSet.getInt("User_ID");
+                int contactId = resultSet.getInt("Contact_ID");
+
+                System.out.println(resultSet.getTimestamp("Start"));
+                Appointments appointment = new Appointments();
+                appointment.setAppointmentId(appointmentId);
+                appointment.setTitle(title);
+                appointment.setDescription(description);
+                appointment.setLocation(location);
+                appointment.setType(type);
+                appointment.setStart(startDate);
+                appointment.setEnd(endDate);
+                appointment.setCustomerId(customerId);
+                appointment.setUserId(userId);
+                appointment.setContactId(contactId);
+
+                appointments.add(appointment);
                 if(appointment.getContactId() == 1) {
                     anikaAppointments.add(appointment);
                 } else if(appointment.getContactId() == 2) {

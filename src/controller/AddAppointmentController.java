@@ -89,11 +89,6 @@ public class AddAppointmentController implements Initializable {
     }
 
     public void populateTimeCombos() {
-        /*LocalTime time = LocalTime.MIN;
-        for(int i = 0; i <=47; i++) {
-            times.add(time.format(formatter));
-            time = time.plusMinutes(30);
-        }*/
         LocalTime time = LocalTime.MIN;
         for(int i = 0; i <=47; i++) {
             times.add(time);

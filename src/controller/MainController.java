@@ -295,6 +295,7 @@ public class MainController implements Initializable {
     }
 
     public void report2BtnClick(ActionEvent actionEvent) throws IOException {
+        //getAppointments();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ReportTwo.fxml"));
         stage.setScene(new Scene(scene));
@@ -304,3 +305,20 @@ public class MainController implements Initializable {
     public void report3BtnClick(ActionEvent actionEvent) {
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

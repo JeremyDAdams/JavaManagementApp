@@ -99,13 +99,10 @@ public class ReportTwoController implements Initializable {
     @FXML
     public TableColumn<Appointments, Integer> customerColThree;
 
-    //public static ObservableList<Appointments> anikaAppointments = getAnikaAppointments();
-
     @Override
     public void initialize (URL url, ResourceBundle rb){
 
-
-        getAppointments();
+        getAppointments2();
 
         anikaTable.setItems(getAnikaAppointments());
         apptColOne.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
@@ -133,6 +130,8 @@ public class ReportTwoController implements Initializable {
         startColThree.setCellValueFactory(new PropertyValueFactory<>("start"));
         endColThree.setCellValueFactory(new PropertyValueFactory<>("end"));
         customerColThree.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+
+
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
@@ -144,4 +143,44 @@ public class ReportTwoController implements Initializable {
         danielTable.getItems().clear();
         liTable.getItems().clear();
     }
+
+    public void runBtnClick(ActionEvent actionEvent) {
+        /*
+        //getAppointments();
+
+
+        anikaTable.getItems().clear();
+
+        getAppointments2();
+        //appointments.clear();
+        //getAppointments();
+        anikaTable.setItems(getAnikaAppointments());
+        apptColOne.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        titleColOne.setCellValueFactory(new PropertyValueFactory<>("title"));
+        typeColOne.setCellValueFactory(new PropertyValueFactory<>("type"));
+        descriptionColOne.setCellValueFactory(new PropertyValueFactory<>("description"));
+        startColOne.setCellValueFactory(new PropertyValueFactory<>("start"));
+        endColOne.setCellValueFactory(new PropertyValueFactory<>("end"));
+        customerColOne.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+*/
+
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
