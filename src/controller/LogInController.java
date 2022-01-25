@@ -94,10 +94,10 @@ public class LogInController implements Initializable {
 
     public void submitBtnClick(ActionEvent actionEvent) throws IOException, SQLException {
 
-        Logger log = Logger.getLogger("log.txt");
+        Logger log = Logger.getLogger("login_activity.txt");
 
         try {
-            FileHandler fh = new FileHandler ("log.txt", true);
+            FileHandler fh = new FileHandler ("login_activity.txt", true);
             SimpleFormatter sf = new SimpleFormatter();
             fh.setFormatter(sf);
             log.addHandler(fh);

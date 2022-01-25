@@ -53,7 +53,7 @@
       <RadioButton fx:id="weekApptRadio" layoutX="1338.0" layoutY="624.0" mnemonicParsing="false" onAction="#apptWeekRadioClick" text="Current Week" toggleGroup="$appointment" />
       <Button layoutX="327.0" layoutY="641.0" mnemonicParsing="false" onAction="#report1BtnClick" text="Appointments by type and month" />
       <Button layoutX="564.0" layoutY="641.0" mnemonicParsing="false" onAction="#report2BtnClick" text="Contact Schedules" />
-      <Button layoutX="715.0" layoutY="641.0" mnemonicParsing="false" onAction="#report3BtnClick" text="Report 3" />
+      <Button layoutX="715.0" layoutY="641.0" mnemonicParsing="false" onAction="#report3BtnClick" text="# of Customers Created by User" />
       <Label layoutX="223.0" layoutY="645.0" text="Reports ---&gt;" />
    </children>
 </AnchorPane>
