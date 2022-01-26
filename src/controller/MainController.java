@@ -18,16 +18,17 @@ import model.Contacts;
 import model.Customer;
 import model.User;
 import utilities.JDBC;
-import java.time.LocalDateTime;
+
+import java.time.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.ResourceBundle;
 import java.sql.Timestamp;
+
+import static java.time.LocalDateTime.now;
 import static utilities.sqlAppointments.*;
 import static utilities.sqlCustomer.*;
 import static utilities.sqlUser.users;
@@ -100,7 +101,9 @@ public class MainController implements Initializable {
     @FXML
     public TableColumn<Appointments, Integer> apptUserIdCol;
 
+    Month currentMonth = now().getMonth();
 
+    //Month apptMonth = appointmentSelected.getStart().getMonth();
 
 
     @Override
