@@ -291,7 +291,11 @@ public class MainController implements Initializable {
     public void apptWeekRadioClick(ActionEvent actionEvent) {
     }
 
-    public void report1BtnClick(ActionEvent actionEvent) {
+    public void report1BtnClick(ActionEvent actionEvent) throws IOException {
+        Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+        scene = FXMLLoader.load(getClass().getResource("/view/ReportOne.fxml"));
+        stage.setScene(new Scene(scene));
+        stage.show();
     }
 
     public void report2BtnClick(ActionEvent actionEvent) throws IOException {
