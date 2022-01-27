@@ -24,6 +24,9 @@ import java.util.ResourceBundle;
 
 import static utilities.sqlCustomer.*;
 
+/**
+ * This class modifies a selected customer.
+ */
 public class ModifyCustomerController implements Initializable {
     Stage stage;
     Parent scene;
@@ -56,6 +59,10 @@ public class ModifyCustomerController implements Initializable {
     @FXML
     private ComboBox addFirstLevelCombo;
 
+    /** This method initializes ModifyCustomerController.
+     * @param url
+     * @param rb
+     */
     //@Override
     public void initialize (URL url, ResourceBundle rb){
 
@@ -104,6 +111,10 @@ public class ModifyCustomerController implements Initializable {
 
     }
 
+    /** This method allows database access for necessary populating and conversions.
+     * @param sql
+     * @return
+     */
     public ResultSet accessDB(String sql) {
 
         ResultSet rs = null;
@@ -128,14 +139,25 @@ public class ModifyCustomerController implements Initializable {
         return rs;
     }
 
+    /** Method to call the populate method.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void countryComboSelect(ActionEvent actionEvent) throws SQLException {
         populateCountriesCombo();
     }
 
+    /** Action method to call divStringToInt.
+     * @param actionEvent
+     * @throws SQLException
+     */
     public void divisionComboSelect(ActionEvent actionEvent) throws SQLException {
         divStringToInt();
     }
 
+    /** Method to populate the country/division combo boxes.
+     * @throws SQLException
+     */
     public void populateCountriesCombo() throws SQLException {
         if(addCountryCombo.getValue().toString().equals("Canada")) {
             ResultSet rs = accessDB("SELECT * FROM first_level_divisions WHERE Country_ID = 3");
@@ -171,23 +193,10 @@ public class ModifyCustomerController implements Initializable {
         }
     }
 
-    public int getDivInt() throws SQLException {
-
-        ResultSet rs = accessDB("SELECT * FROM first_level_divisions");
-        try {
-            while (rs.next()) {
-                if(rs.getString(2).equals(customerSelected.getDivisionId())) {
-                    divId = rs.getInt(1);
-                }
-            }
-        } catch (SQLException ex) {
-
-        }
-        System.out.println(divId);
-
-        return divId;
-    }
-
+    /** This method converts the division string to the corresponding integer.
+     * @return
+     * @throws SQLException
+     */
     public int divStringToInt() throws SQLException {
         addFirstLevelCombo.getValue();
         ResultSet rs = accessDB("SELECT * FROM first_level_divisions");
@@ -205,6 +214,11 @@ public class ModifyCustomerController implements Initializable {
         return divId;
     }
 
+    /** Saves modifications to the selected customer. Returns to the Main screen.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void saveBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
         String name = addNameTxt.getText();
         String address = addAddressTxt.getText();
@@ -225,6 +239,10 @@ public class ModifyCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Returns to Main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         getCustomers();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -233,6 +251,9 @@ public class ModifyCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Exits application. This button closes the server connection and exits the application.
+     * @param actionEvent
+     */
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);
