@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to define Customer model with getters and setters.
+ */
 public class Customer {
     private int customerId;
     private String customerName;

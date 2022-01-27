@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to define FirstLevelDivisions model with getters and setters.
+ */
 public class FirstLevelDivisions {
     private int divisionId;
     private String division;

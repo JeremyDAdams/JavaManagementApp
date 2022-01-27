@@ -1,5 +1,8 @@
 package model;
 
+/**
+ * Class to define Contact model with getters and setters.
+ */
 public class Contacts {
     private int contactId;
     private String contactName;

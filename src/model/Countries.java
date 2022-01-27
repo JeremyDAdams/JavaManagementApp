@@ -2,6 +2,9 @@ package model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to define Countries model with getters and setters.
+ */
 public class Countries {
     private int countryId;
     private String country;
