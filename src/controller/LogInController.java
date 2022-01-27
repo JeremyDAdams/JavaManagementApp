@@ -23,6 +23,7 @@ import java.util.logging.SimpleFormatter;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import model.User;
+import utilities.AlertInterface;
 import utilities.JDBC;
 
 import java.sql.Connection;
@@ -138,13 +139,17 @@ public class LogInController implements Initializable {
         } else {
             //log.warning("Login failed.");
             System.out.println("Not working.");
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            logInError = rb.getString("loginerror");
-            alert.setContentText(logInError);
-            alert.showAndWait();
+            alert.displayAlert();
         }
     }
+
+    AlertInterface alert = () -> {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Error");
+        logInError = rb.getString("loginerror");
+        alert.setContentText(logInError);
+        alert.showAndWait();
+    };
 
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();

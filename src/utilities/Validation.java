@@ -2,15 +2,24 @@ package utilities;
 
 import controller.LogInController;
 import controller.MainController;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.stage.Stage;
 import model.Appointments;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
 import static java.time.LocalDateTime.now;
 import static utilities.sqlAppointments.*;
+import java.util.*;
 
 public class Validation {
     public static boolean validBusinessHours(LocalDateTime startLDT, LocalDateTime endLDT, LocalDate date) {

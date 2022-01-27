@@ -144,27 +144,6 @@ public class ReportTwoController implements Initializable {
         liTable.getItems().clear();
     }
 
-    public void runBtnClick(ActionEvent actionEvent) {
-        /*
-        //getAppointments();
-
-
-        anikaTable.getItems().clear();
-
-        getAppointments2();
-        //appointments.clear();
-        //getAppointments();
-        anikaTable.setItems(getAnikaAppointments());
-        apptColOne.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
-        titleColOne.setCellValueFactory(new PropertyValueFactory<>("title"));
-        typeColOne.setCellValueFactory(new PropertyValueFactory<>("type"));
-        descriptionColOne.setCellValueFactory(new PropertyValueFactory<>("description"));
-        startColOne.setCellValueFactory(new PropertyValueFactory<>("start"));
-        endColOne.setCellValueFactory(new PropertyValueFactory<>("end"));
-        customerColOne.setCellValueFactory(new PropertyValueFactory<>("customerId"));
-*/
-
-    }
 }
 
 

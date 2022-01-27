@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import model.Contacts;
+import utilities.TimeInterface;
 import utilities.JDBC;
 
 import java.io.IOException;
@@ -25,7 +26,6 @@ import java.time.format.FormatStyle;
 import java.util.ResourceBundle;
 
 import static utilities.sqlAppointments.*;
-import static utilities.sqlCustomer.getCustomers;
 
 public class AddAppointmentController implements Initializable {
 
@@ -71,8 +71,9 @@ public class AddAppointmentController implements Initializable {
 
 
     public void initialize (URL url, ResourceBundle rb){
-        populateTimeCombos();
+        //populateTimeCombos();
 
+        time.timeCombo();
         contacts.clear();
         try {
             getContacts();
@@ -89,11 +90,7 @@ public class AddAppointmentController implements Initializable {
     }
 
     public void populateTimeCombos() {
-        LocalTime time = LocalTime.MIN;
-        for(int i = 0; i <=47; i++) {
-            times.add(time);
-            time = time.plusMinutes(30);
-        }
+
     }
 
 
@@ -133,13 +130,20 @@ public class AddAppointmentController implements Initializable {
     }
 
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
-
         getAppointments();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
     }
+
+    TimeInterface time = () -> {
+        LocalTime time = LocalTime.MIN;
+        for(int i = 0; i <=47; i++) {
+            times.add(time);
+            time = time.plusMinutes(30);
+        }
+    };
 
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();

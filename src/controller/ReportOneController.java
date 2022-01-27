@@ -99,6 +99,9 @@ public class ReportOneController implements Initializable {
 
     private static Connection connection = JDBC.getConnection();
     static Statement statement = null;
+    /*https://stackoverflow.com/questions/508791/mysql-query-group-by-day-month-year
+    Was a big help here.
+     */
     static String appointmentQueryMonth = "SELECT COUNT(Appointment_ID), DATE_FORMAT(start, '%M') FROM appointments GROUP BY MONTH(start)";
     static String appointmentQueryType = "SELECT COUNT(Type), Type from appointments GROUP BY Type";
 
