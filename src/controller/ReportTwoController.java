@@ -102,7 +102,7 @@ public class ReportTwoController implements Initializable {
     @Override
     public void initialize (URL url, ResourceBundle rb){
 
-        getAppointments2();
+        getAppointmentsForReport();
 
         anikaTable.setItems(getAnikaAppointments());
         apptColOne.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));

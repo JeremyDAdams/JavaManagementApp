@@ -9,6 +9,8 @@ import model.Contacts;
 import java.sql.*;
 import java.time.*;
 
+import static java.time.LocalDateTime.now;
+
 public class sqlAppointments {
     private static Connection connection = JDBC.getConnection();
     static Statement statement = null;
@@ -18,7 +20,10 @@ public class sqlAppointments {
     public static ObservableList<Appointments> anikaAppointments = FXCollections.observableArrayList();
     public static ObservableList<Appointments> danielAppointments = FXCollections.observableArrayList();
     public static ObservableList<Appointments> liAppointments = FXCollections.observableArrayList();
+    public static ObservableList<Appointments> appointmentsByMonth = FXCollections.observableArrayList();
+    public static ObservableList<Appointments> appointmentsByWeek = FXCollections.observableArrayList();
     public static ObservableList<Contacts> contacts = FXCollections.observableArrayList();
+
 
 
 
@@ -54,21 +59,14 @@ public class sqlAppointments {
                 appointment.setContactId(contactId);
 
                 appointments.add(appointment);
-                /*
-                if(appointment.getContactId() == 1) {
-                    anikaAppointments.add(appointment);
-                } else if(appointment.getContactId() == 2) {
-                    danielAppointments.add(appointment);
-                } else if(appointment.getContactId() == 3) {
-                    liAppointments.add(appointment);
-                }*/
+
             }
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
     }
 
-    public static void getAppointments2() {
+    public static void getAppointmentsForReport() {
         try {
             statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(appointmentsQuery);
@@ -106,6 +104,89 @@ public class sqlAppointments {
                     danielAppointments.add(appointment);
                 } else if(appointment.getContactId() == 3) {
                     liAppointments.add(appointment);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void getAppointmentsByMonth() {
+        try {
+            Month currentMonth = now().getMonth();
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(appointmentsQuery);
+
+            while (resultSet.next()) {
+                int appointmentId = resultSet.getInt("Appointment_ID");
+                String title = resultSet.getString("Title");
+                String description = resultSet.getString("Description");
+                String location = resultSet.getString("Location");
+                String contact = null;
+                String type = resultSet.getString("Type");
+                LocalDateTime startDate = resultSet.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDate = resultSet.getTimestamp("End").toLocalDateTime();
+                int customerId = resultSet.getInt("Customer_ID");
+                int userId = resultSet.getInt("User_ID");
+                int contactId = resultSet.getInt("Contact_ID");
+
+                //System.out.println(startDate.getMonth());
+                //System.out.println(currentMonth);
+
+                if(startDate.getMonth().equals(currentMonth)) {
+                    Appointments appointment = new Appointments();
+                    appointment.setAppointmentId(appointmentId);
+                    appointment.setTitle(title);
+                    appointment.setDescription(description);
+                    appointment.setLocation(location);
+                    appointment.setType(type);
+                    appointment.setStart(startDate);
+                    appointment.setEnd(endDate);
+                    appointment.setCustomerId(customerId);
+                    appointment.setUserId(userId);
+                    appointment.setContactId(contactId);
+                    appointmentsByMonth.add(appointment);
+                }
+            }
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+    }
+
+    public static void getAppointmentsByWeek() {
+        try {
+
+            statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(appointmentsQuery);
+
+            while (resultSet.next()) {
+                int appointmentId = resultSet.getInt("Appointment_ID");
+                String title = resultSet.getString("Title");
+                String description = resultSet.getString("Description");
+                String location = resultSet.getString("Location");
+                String contact = null;
+                String type = resultSet.getString("Type");
+                LocalDateTime startDate = resultSet.getTimestamp("Start").toLocalDateTime();
+                LocalDateTime endDate = resultSet.getTimestamp("End").toLocalDateTime();
+                int customerId = resultSet.getInt("Customer_ID");
+                int userId = resultSet.getInt("User_ID");
+                int contactId = resultSet.getInt("Contact_ID");
+
+                LocalDateTime currentWeek = now().plusDays(6);
+
+                if(startDate.isAfter(now()) && startDate.isBefore(currentWeek)) {
+                    Appointments appointment = new Appointments();
+                    appointment.setAppointmentId(appointmentId);
+                    appointment.setTitle(title);
+                    appointment.setDescription(description);
+                    appointment.setLocation(location);
+                    appointment.setType(type);
+                    appointment.setStart(startDate);
+                    appointment.setEnd(endDate);
+                    appointment.setCustomerId(customerId);
+                    appointment.setUserId(userId);
+                    appointment.setContactId(contactId);
+                    appointmentsByWeek.add(appointment);
                 }
             }
         } catch (SQLException throwables) {
@@ -198,5 +279,13 @@ public class sqlAppointments {
 
     public static ObservableList<Appointments> getLiAppointments() {
         return liAppointments;
+    }
+
+    public static ObservableList<Appointments> getMonthAppointments() {
+        return appointmentsByMonth;
+    }
+
+    public static ObservableList<Appointments> getWeekAppointments() {
+        return appointmentsByWeek;
     }
 }

@@ -101,7 +101,7 @@ public class MainController implements Initializable {
     @FXML
     public TableColumn<Appointments, Integer> apptUserIdCol;
 
-    Month currentMonth = now().getMonth();
+
 
     //Month apptMonth = appointmentSelected.getStart().getMonth();
 
@@ -167,13 +167,6 @@ public class MainController implements Initializable {
 
     }
 
-    public static void convertTime() {
-        for (Appointments appointment : appointments) {
-            //LocalDateTime ts = appointment.getStart();
-            //ZonedDateTime zdt = ts.atZone(ZoneId.of(ZoneId.systemDefault().toString()));
-            //appointment.setStart(zdt);
-        }
-    }
 
     public void custAddBtnClick(ActionEvent actionEvent) throws IOException {
         stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
@@ -285,13 +278,102 @@ public class MainController implements Initializable {
         System.exit(0);
     }
 
-    public void apptAllRadioClick(ActionEvent actionEvent) {
+    public void apptAllRadioClick(ActionEvent actionEvent) throws IOException {
+        getAppointments();
+        apptTableView.getItems().clear();
+        apptTableView.setItems(getAllAppointments());
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+
+        try {
+            getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String contact1 = null;
+        for (Appointments appointment : appointments) {
+            for (Contacts contact : contacts) {
+                if (appointment.getContactId() == contact.getContactId()) {
+                    contact1 = contact.getContactName();
+                }
+                appointment.setContact(contact1);
+            }
+        }
+
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
     public void apptMonthRadioClick(ActionEvent actionEvent) {
+        apptTableView.getItems().clear();
+        appointments.clear();
+        getAppointmentsByMonth();
+        apptTableView.setItems(getMonthAppointments());
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+
+        try {
+            getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String contact1 = null;
+        for (Appointments appointment : appointmentsByMonth) {
+            for (Contacts contact : contacts) {
+                if (appointment.getContactId() == contact.getContactId()) {
+                    contact1 = contact.getContactName();
+                }
+                appointment.setContact(contact1);
+            }
+        }
+
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
     public void apptWeekRadioClick(ActionEvent actionEvent) {
+        apptTableView.getItems().clear();
+        appointments.clear();
+        getAppointmentsByWeek();
+        apptTableView.setItems(getWeekAppointments());
+        apptIdCol.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
+        apptTitleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
+        apptDescCol.setCellValueFactory(new PropertyValueFactory<>("description"));
+        apptLocationCol.setCellValueFactory(new PropertyValueFactory<>("location"));
+
+        try {
+            getContacts();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
+        String contact1 = null;
+        for (Appointments appointment : appointmentsByWeek) {
+            for (Contacts contact : contacts) {
+                if (appointment.getContactId() == contact.getContactId()) {
+                    contact1 = contact.getContactName();
+                }
+                appointment.setContact(contact1);
+            }
+        }
+
+        apptContactCol.setCellValueFactory(new PropertyValueFactory<>("contact"));
+        apptTypeCol.setCellValueFactory(new PropertyValueFactory<>("type"));
+        apptStartCol.setCellValueFactory(new PropertyValueFactory<>("start"));
+        apptEndCol.setCellValueFactory(new PropertyValueFactory<>("end"));
+        apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
     public void report1BtnClick(ActionEvent actionEvent) throws IOException {
