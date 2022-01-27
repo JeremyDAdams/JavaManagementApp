@@ -11,6 +11,9 @@ import java.time.*;
 
 import static java.time.LocalDateTime.now;
 
+/**
+ * Class to do most SQL related to appointments.
+ */
 public class sqlAppointments {
     private static Connection connection = JDBC.getConnection();
     static Statement statement = null;
@@ -25,8 +28,9 @@ public class sqlAppointments {
     public static ObservableList<Contacts> contacts = FXCollections.observableArrayList();
 
 
-
-
+    /**
+     * Method to get appointments.
+     */
     public static void getAppointments() {
         try {
             statement = connection.createStatement();
@@ -66,6 +70,9 @@ public class sqlAppointments {
         }
     }
 
+    /**
+     * Method to get appointments for the second report.
+     */
     public static void getAppointmentsForReport() {
         try {
             statement = connection.createStatement();
@@ -111,6 +118,9 @@ public class sqlAppointments {
         }
     }
 
+    /**
+     * Method to get appointments for the current month.
+     */
     public static void getAppointmentsByMonth() {
         try {
             Month currentMonth = now().getMonth();
@@ -153,6 +163,9 @@ public class sqlAppointments {
         }
     }
 
+    /**
+     * Method to get appointments for the current week.
+     */
     public static void getAppointmentsByWeek() {
         try {
 
@@ -194,6 +207,9 @@ public class sqlAppointments {
         }
     }
 
+    /** Method to get contacts.
+     * @throws SQLException
+     */
     public static void getContacts() throws SQLException {
 
         statement = connection.createStatement();
@@ -211,6 +227,18 @@ public class sqlAppointments {
         }
     }
 
+    /** Method to save a new appointment to the database.
+     * @param title
+     * @param description
+     * @param location
+     * @param contactId
+     * @param type
+     * @param start
+     * @param end
+     * @param custId
+     * @param userId
+     * @throws SQLException
+     */
     public static void saveAppointment(String title, String description, String location, int contactId, String type, Timestamp start, Timestamp end, int custId, int userId) throws SQLException {
         try {
             String userName = LogInController.userName;
@@ -233,6 +261,19 @@ public class sqlAppointments {
         }
     }
 
+    /** Method to save modifications to the selected appointment.
+     * @param title
+     * @param description
+     * @param location
+     * @param contactId
+     * @param type
+     * @param start
+     * @param end
+     * @param custId
+     * @param userId
+     * @param apptId
+     * @throws SQLException
+     */
     public static void modifyAppointment(String title, String description, String location, int contactId, String type, Timestamp start, Timestamp end, int custId, int userId, int apptId) throws SQLException {
         String userName = LogInController.userName;
         String saveString = "UPDATE appointments " +
@@ -254,6 +295,10 @@ public class sqlAppointments {
         statement.executeUpdate();
     }
 
+    /** Method to delete the selected appointment.
+     * @param apptId
+     * @throws SQLException
+     */
     public static void deleteAppointment(int apptId) throws SQLException {
         String deleteString = "DELETE FROM appointments WHERE Appointment_ID = ?";
         PreparedStatement statement = connection.prepareStatement(deleteString);
@@ -261,30 +306,51 @@ public class sqlAppointments {
         statement.executeUpdate();
     }
 
+    /** Method to get all contacts.
+     * @return
+     */
     public static ObservableList<Contacts> getAllContacts() {
         return contacts;
     }
 
+    /** Method to get all appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getAllAppointments() {
         return appointments;
     }
 
+    /** Method to return Anika's appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getAnikaAppointments() {
         return anikaAppointments;
     }
 
+    /** Method to return Daniel's appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getDanielAppointments() {
         return danielAppointments;
     }
 
+    /** Method to return Li's appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getLiAppointments() {
         return liAppointments;
     }
 
+    /** Method to return the current month's appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getMonthAppointments() {
         return appointmentsByMonth;
     }
 
+    /** Method to return the current week's appointments.
+     * @return
+     */
     public static ObservableList<Appointments> getWeekAppointments() {
         return appointmentsByWeek;
     }
