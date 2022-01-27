@@ -1,7 +1,6 @@
 package controller;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +10,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
-import model.FirstLevelDivisions;
-import model.User;
 import utilities.JDBC;
-import utilities.sqlCombo;
 
 import java.io.IOException;
 import java.net.URL;
@@ -26,15 +21,13 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
-import static utilities.JDBC.makeConnection;
-import static utilities.sqlCombo.getAllCountries;
-import static utilities.sqlCombo.getCountries;
-import static utilities.sqlCustomer.*;
-
-import model.Countries;
+import static utilities.sqlCustomer.getCustomers;
+import static utilities.sqlCustomer.saveCustomer;
 
 
-
+/**
+ * AddCustomerController class for adding new customers..
+ */
 public class AddCustomerController implements Initializable {
 
 
@@ -44,7 +37,7 @@ public class AddCustomerController implements Initializable {
 
     public int divId;
     public Connection conn;
-    //conn = JDBC.makeConnection();
+
 
     @FXML
     private TextField addNameTxt;
@@ -64,7 +57,11 @@ public class AddCustomerController implements Initializable {
     @FXML
     private ComboBox addFirstLevelCombo;
 
-    //@Override
+
+    /** Initialize AddCustomerController.
+     * @param url
+     * @param rb
+     */
     public void initialize (URL url, ResourceBundle rb){
         ResultSet rs = accessDB("SELECT * FROM countries");
         try {
@@ -73,7 +70,7 @@ public class AddCustomerController implements Initializable {
                 addCountryCombo.getItems().add(rs.getString(2));
             }
         } catch (SQLException ex) {
-            //Logger.getLogger(ComboBoxExampleController.class.getName()).log(Level.SEVERE, null, ex);
+
         }
     }
 
@@ -91,7 +88,7 @@ public class AddCustomerController implements Initializable {
             rs = stmt.executeQuery(sql);
 
             while (rs.next()) {
-                System.out.println(rs.getString(2));
+                //System.out.println(rs.getString(2));
             }
             rs.beforeFirst(); //prepare for rs to be used by the caller
         } catch (SQLException ex) {
@@ -101,6 +98,9 @@ public class AddCustomerController implements Initializable {
         return rs;
     }
 
+    /** This method populates the divisions combo box.
+     * @param actionEvent
+     */
     public void countryComboSelect(ActionEvent actionEvent) {
 
 
@@ -138,6 +138,9 @@ public class AddCustomerController implements Initializable {
         }
     }
 
+    /** Method to convert division name to division id.
+     * @param actionEvent
+     */
     public void divisionComboSelect(ActionEvent actionEvent) {
         addFirstLevelCombo.getValue();
         ResultSet rs = accessDB("SELECT * FROM first_level_divisions");
@@ -154,6 +157,11 @@ public class AddCustomerController implements Initializable {
     }
 
 
+    /** This saves a new customer.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void saveBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
         String name = addNameTxt.getText();
         String address = addAddressTxt.getText();
@@ -169,6 +177,10 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Return to Main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         getCustomers();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -177,6 +189,9 @@ public class AddCustomerController implements Initializable {
         stage.show();
     }
 
+    /** Exits application. This button closes the server connection and exits the application.
+     * @param actionEvent
+     */
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);
