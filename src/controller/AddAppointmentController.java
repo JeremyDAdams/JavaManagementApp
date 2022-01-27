@@ -73,12 +73,12 @@ public class AddAppointmentController implements Initializable {
     ObservableList<String> contactNames = FXCollections.observableArrayList();
 
 
-    /** Initialize AddAppointmentController
+    /** Initialize AddAppointmentController.
+     * A lambda expression is used to generate the times for the time selection combo boxes.
      * @param url
      * @param rb
      */
     public void initialize (URL url, ResourceBundle rb){
-        //populateTimeCombos();
 
         time.timeCombo();
         contacts.clear();
@@ -96,12 +96,8 @@ public class AddAppointmentController implements Initializable {
         contactCombo.setItems(contactNames);
     }
 
-    public void populateTimeCombos() {
 
-    }
-
-
-    /**
+    /** This saves a new appointment.
      * @param actionEvent
      * @throws IOException
      * @throws SQLException
@@ -141,6 +137,10 @@ public class AddAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Return to Main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         getAppointments();
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
@@ -157,6 +157,9 @@ public class AddAppointmentController implements Initializable {
         }
     };
 
+    /** Exits application. This button closes the server connection and exits the application.
+     * @param actionEvent
+     */
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);
