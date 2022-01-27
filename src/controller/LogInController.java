@@ -37,6 +37,9 @@ import static utilities.sqlCustomer.getCustomers;
 import static utilities.sqlUser.getUsers;
 import static utilities.sqlUser.users;
 
+/**
+ * Controller for the log-in screen.
+ */
 public class LogInController implements Initializable {
 
     public static String userName;
@@ -73,6 +76,10 @@ public class LogInController implements Initializable {
 
     ResourceBundle rb;
 
+    /** Method to initialize the log-in controller.
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb) {
         this.rb = rb;
         System.out.println(Locale.getDefault());
@@ -93,6 +100,13 @@ public class LogInController implements Initializable {
         submitButton.setDefaultButton(true);
     }
 
+    /** Method to submit username and password.
+     * Provided credentials are then checked against those in the database.
+     * A lambda was added to display an alert if the credentials didn't match.
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void submitBtnClick(ActionEvent actionEvent) throws IOException, SQLException {
 
         Logger log = Logger.getLogger("login_activity.txt");
@@ -151,6 +165,9 @@ public class LogInController implements Initializable {
         alert.showAndWait();
     };
 
+    /** Exits application. This button closes the server connection and exits the application.
+     * @param actionEvent
+     */
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);

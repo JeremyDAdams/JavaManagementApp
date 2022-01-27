@@ -6,10 +6,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 import model.Appointments;
@@ -95,6 +92,9 @@ public class MainController implements Initializable {
     @FXML
     public TableColumn<Appointments, Integer> apptUserIdCol;
 
+    @FXML
+    public RadioButton allApptRadio;
+
 
 
     /** Initialize MainController.java
@@ -156,6 +156,7 @@ public class MainController implements Initializable {
         apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
+        allApptRadio.isSelected();
     }
 
 
