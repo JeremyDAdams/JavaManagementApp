@@ -26,6 +26,9 @@ import java.util.ResourceBundle;
 import static utilities.Validation.*;
 import static utilities.sqlAppointments.*;
 
+/**
+ * Class to modify appointments.
+ */
 public class ModifyAppointmentController implements Initializable {
 
     Stage stage;
@@ -69,6 +72,10 @@ public class ModifyAppointmentController implements Initializable {
     @FXML
     public ComboBox contactCombo;
 
+    /** Initialize ModifyAppointmentController.
+     * @param url
+     * @param rb
+     */
     public void initialize (URL url, ResourceBundle rb) {
         populateTimeCombos();
 
@@ -98,6 +105,9 @@ public class ModifyAppointmentController implements Initializable {
         contactCombo.getSelectionModel().select(appointmentSelected.getContact());
     }
 
+    /**
+     * Method to populate the time combos. This is an alternative to using a lambda.
+     */
     public void populateTimeCombos() {
 
         LocalTime time = LocalTime.MIN;
@@ -107,6 +117,11 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** This modifies the appointment selected in the MainController.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void saveBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
 
         String title = modifyTitleTxt.getText();
@@ -157,6 +172,10 @@ public class ModifyAppointmentController implements Initializable {
         }
     }
 
+    /** Return to main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         getAppointments();
         contactCombo.setItems(FXCollections.observableArrayList());
@@ -166,6 +185,9 @@ public class ModifyAppointmentController implements Initializable {
         stage.show();
     }
 
+    /** Exits application. This button closes the server connection and exits the application.
+     * @param actionEvent
+     */
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);
