@@ -8,13 +8,21 @@ import utilities.JDBC;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+/**
+ * Main class for the application.
+ */
 public class Main extends Application {
 
     static Stage stage;
 
+    /** Start for the main class. Launches log-in screen.
+     * @param stage
+     * @throws Exception
+     */
     @Override
     public void start(Stage stage) throws Exception{
         this.stage = stage;
+        //Used to test French translation functionality.
         //Locale.setDefault(new Locale("fr", "France"));
         ResourceBundle rb = ResourceBundle.getBundle("language_files/rb");
 
@@ -28,15 +36,16 @@ public class Main extends Application {
         stage.setScene(scene);
 
         stage.show();
-        /*Parent root = FXMLLoader.load(getClass().getResource("/view/LogIn.fxml"));
-        loader.setResource(rb);
-        stage.setScene(new Scene(root, 300, 275));
-        stage.show();*/
+
     }
+
+    /** Main.
+     * @param args
+     */
     public static void main(String[] args) {
-    System.out.println(Locale.getDefault());
+    //System.out.println(Locale.getDefault());
         JDBC.makeConnection();
-        //JDBC.closeConnection();
+
         launch(args);
     }
 
