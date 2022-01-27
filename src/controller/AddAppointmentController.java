@@ -27,6 +27,9 @@ import java.util.ResourceBundle;
 
 import static utilities.sqlAppointments.*;
 
+/**
+ * Class for adding appointments to the database.
+ */
 public class AddAppointmentController implements Initializable {
 
 
@@ -70,7 +73,7 @@ public class AddAppointmentController implements Initializable {
     ObservableList<String> contactNames = FXCollections.observableArrayList();
 
 
-    /**
+    /** Initialize AddAppointmentController
      * @param url
      * @param rb
      */

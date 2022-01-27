@@ -3,6 +3,9 @@ package model;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
+/**
+ * Main class for Appointments. Includes getters and setters.
+ */
 public class Appointments {
     private int appointmentId;
     private String title;

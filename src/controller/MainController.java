@@ -1,6 +1,5 @@
 package controller;
 
-import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -16,24 +15,19 @@ import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
 import model.Customer;
-import model.User;
 import utilities.JDBC;
 
-import java.time.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ResourceBundle;
-import java.sql.Timestamp;
 
-import static java.time.LocalDateTime.now;
 import static utilities.sqlAppointments.*;
 import static utilities.sqlCustomer.*;
-import static utilities.sqlUser.users;
-import controller.ReportTwoController;
 
+/** Controller for the main screen. Populates and displays tables.
+ */
 public class MainController implements Initializable {
 
     Stage stage;
@@ -103,9 +97,10 @@ public class MainController implements Initializable {
 
 
 
-    //Month apptMonth = appointmentSelected.getStart().getMonth();
-
-
+    /** Initialize MainController.java
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize (URL url, ResourceBundle rb){
         appointments.clear();
@@ -161,13 +156,13 @@ public class MainController implements Initializable {
         apptCustIdCol.setCellValueFactory(new PropertyValueFactory<>("customerId"));
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
 
-        System.out.println(userId + "This is from MainController");
-
-
-
     }
 
 
+    /** Switch to add customer screen. This switches screens and clears the table view for customers.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void custAddBtnClick(ActionEvent actionEvent) throws IOException {
         stage = (Stage)((Button)actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddCustomer.fxml"));
@@ -176,6 +171,10 @@ public class MainController implements Initializable {
         customerTableView.getItems().clear();
     }
 
+    /** Switch to update customer screen. This switches screens and clears the table view for customers.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void custUpdateBtnClick(ActionEvent actionEvent) throws IOException {
         customerSelected = customerTableView.getSelectionModel().getSelectedItem();
         if(customerSelected == null) {
@@ -192,6 +191,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /** Delete selected customer. This deletes the selected customer and any associated appointments.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void custDeleteBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
         customerSelected = customerTableView.getSelectionModel().getSelectedItem();
         int customerId = customerSelected.getCustomerId();
@@ -221,6 +225,10 @@ public class MainController implements Initializable {
         }
     }
 
+    /** Switch to add appointment screen. This switches screens and clears the table view for appointments.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void apptAddBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/AddAppointment.fxml"));
@@ -229,6 +237,10 @@ public class MainController implements Initializable {
         apptTableView.getItems().clear();
     }
 
+    /** Switch to update appointment screen. This switches screens and clears the table view for appointments.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void apptUpdateBtnClick(ActionEvent actionEvent) throws IOException {
 
         appointmentSelected = apptTableView.getSelectionModel().getSelectedItem();
@@ -246,6 +258,11 @@ public class MainController implements Initializable {
         }
     }
 
+    /** Delete selected appointment. This deletes the selected appointment and repopulates the table.
+     * @param actionEvent
+     * @throws SQLException
+     * @throws IOException
+     */
     public void apptDeleteBtnClick(ActionEvent actionEvent) throws SQLException, IOException {
         appointmentSelected = apptTableView.getSelectionModel().getSelectedItem();
         int apptId = appointmentSelected.getAppointmentId();
@@ -273,11 +290,18 @@ public class MainController implements Initializable {
         }
     }
 
+    /** Exits application. This button closes the server connection and exits the application.
+     * @param actionEvent
+     */
     public void exitBtnClick(ActionEvent actionEvent) {
         JDBC.closeConnection();
         System.exit(0);
     }
 
+    /** Shows all appointments. This radio button makes the appointment table show all appointments.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void apptAllRadioClick(ActionEvent actionEvent) throws IOException {
         getAppointments();
         apptTableView.getItems().clear();
@@ -310,6 +334,9 @@ public class MainController implements Initializable {
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
+    /** Show monthly appointments. This radio button makes the appointment table show only appointments for the current month.
+     * @param actionEvent
+     */
     public void apptMonthRadioClick(ActionEvent actionEvent) {
         apptTableView.getItems().clear();
         appointments.clear();
@@ -343,6 +370,9 @@ public class MainController implements Initializable {
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
+    /** Show weekly appointments. This radio button makes the appointment table show only appointments for the next 7 days.
+     * @param actionEvent
+     */
     public void apptWeekRadioClick(ActionEvent actionEvent) {
         apptTableView.getItems().clear();
         appointments.clear();
@@ -376,6 +406,10 @@ public class MainController implements Initializable {
         apptUserIdCol.setCellValueFactory(new PropertyValueFactory<>("userId"));
     }
 
+    /** Switch to report one screen. This button switches screens to the first required report.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void report1BtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ReportOne.fxml"));
@@ -384,6 +418,10 @@ public class MainController implements Initializable {
         apptTableView.getItems().clear();
     }
 
+    /** Switch to report two screen. This button switches screens to the second required report.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void report2BtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ReportTwo.fxml"));
@@ -392,6 +430,10 @@ public class MainController implements Initializable {
         apptTableView.getItems().clear();
     }
 
+    /** Switch to report three screen. This button switches screens to the third required report.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void report3BtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/ReportThree.fxml"));

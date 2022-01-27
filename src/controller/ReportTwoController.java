@@ -143,7 +143,6 @@ public class ReportTwoController implements Initializable {
         danielTable.getItems().clear();
         liTable.getItems().clear();
     }
-
 }
 
 
