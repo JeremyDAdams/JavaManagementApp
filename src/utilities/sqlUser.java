@@ -10,6 +10,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 
+/**
+ * Class to do most user related SQL.
+ */
 public class sqlUser {
     private static Connection connection = JDBC.getConnection();
 
@@ -17,6 +20,9 @@ public class sqlUser {
     static String userQuery = "SELECT * FROM users";
     public static ObservableList<User> users = FXCollections.observableArrayList();
 
+    /**
+     * Method to get users from the database.
+     */
     public static void getUsers() {
         try {
             statement = connection.createStatement();

@@ -10,6 +10,9 @@ import model.User;
 import java.sql.*;
 import java.time.LocalDateTime;
 
+/**
+ * Class to do most of the SQL related to customers.
+ */
 public class sqlCustomer {
     private static Connection connection = JDBC.getConnection();
     static Statement statement = null;
@@ -17,7 +20,9 @@ public class sqlCustomer {
     public static ObservableList<Customer> customers = FXCollections.observableArrayList();
 
 
-
+    /**
+     * Method to get customers from the database.
+     */
     public static void getCustomers() {
         try {
             statement = connection.createStatement();
@@ -49,6 +54,14 @@ public class sqlCustomer {
         }
     }
 
+    /** Method to save a new customer.
+     * @param name
+     * @param address
+     * @param postCode
+     * @param phoneNumber
+     * @param divId
+     * @throws SQLException
+     */
     public static void saveCustomer(String name, String address, String postCode, String phoneNumber, int divId) throws SQLException {
         try {
             String userName = LogInController.userName;
@@ -69,6 +82,15 @@ public class sqlCustomer {
         }
     }
 
+    /** Method to update an existing customer.
+     * @param name
+     * @param address
+     * @param postCode
+     * @param phoneNumber
+     * @param divId
+     * @param customerId
+     * @throws SQLException
+     */
     public static void updateCustomer(String name, String address, String postCode, String phoneNumber, int divId, int customerId) throws SQLException {
         String userName = LogInController.userName;
         String saveString = "UPDATE customers SET Customer_Name = ?, Address = ?, Postal_Code = ?, Phone = ?, Last_Update = NOW(), Last_Updated_By = ?, Division_ID = ? WHERE Customer_ID = ?";
@@ -84,6 +106,10 @@ public class sqlCustomer {
 
     }
 
+    /** Method to delete a selected customer and any linked appointments.
+     * @param customerId
+     * @throws SQLException
+     */
     public static void deleteCustomer(int customerId) throws SQLException {
         String deleteRelatedAppt = "DELETE FROM appointments WHERE Customer_ID = ?";
         String deleteCustomerString = "DELETE FROM customers WHERE Customer_ID = ?";

@@ -1,27 +1,26 @@
 package utilities;
 
 import controller.LogInController;
-import controller.MainController;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.stage.Stage;
 import model.Appointments;
 
-import java.io.IOException;
-import java.sql.Timestamp;
 import java.time.*;
 import java.time.temporal.ChronoUnit;
 
 import static java.time.LocalDateTime.now;
-import static utilities.sqlAppointments.*;
-import java.util.*;
+import static utilities.sqlAppointments.appointments;
+import static utilities.sqlAppointments.getAppointments;
 
+/**
+ * Class to run some of the lengthier validation.
+ */
 public class Validation {
+    /** Method to ensure appointment times fall within valid business hours.
+     * @param startLDT
+     * @param endLDT
+     * @param date
+     * @return
+     */
     public static boolean validBusinessHours(LocalDateTime startLDT, LocalDateTime endLDT, LocalDate date) {
         ZoneId localZoneId = ZoneId.systemDefault();
         ZonedDateTime startLZDT = ZonedDateTime.of(startLDT, localZoneId);
@@ -36,6 +35,13 @@ public class Validation {
         }
     }
 
+    /** Method to ensure that overlapping appointments can't be created for a customer.
+     * @param startLDT
+     * @param endLDT
+     * @param custId
+     * @param apptId
+     * @return
+     */
     public static boolean noAppointmentOverlap(LocalDateTime startLDT, LocalDateTime endLDT, int custId, int apptId) {
         boolean appointmentOverlapBool = true;
         System.out.println(custId);
@@ -55,6 +61,9 @@ public class Validation {
         return appointmentOverlapBool;
     }
 
+    /**
+     * Method to alert users to appointments close to their log-in time.
+     */
     public static void logInAppointmentAlert() {
 
         getAppointments();
