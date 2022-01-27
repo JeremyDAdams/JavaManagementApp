@@ -22,6 +22,11 @@ import java.util.ResourceBundle;
 
 import static utilities.sqlAppointments.*;
 
+/**
+ * Class to generate the second required report.
+ * It shows the schedule of appointments for each contact.
+ * The SQL for this method is done in sqlAppointments.
+ */
 public class ReportTwoController implements Initializable {
 
 
@@ -99,6 +104,10 @@ public class ReportTwoController implements Initializable {
     @FXML
     public TableColumn<Appointments, Integer> customerColThree;
 
+    /** Method to initialize ReportTwoController.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize (URL url, ResourceBundle rb){
 
@@ -134,6 +143,10 @@ public class ReportTwoController implements Initializable {
 
     }
 
+    /** Return to Main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));

@@ -4,6 +4,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+/**
+ * This class connects to the MySQL server.
+ */
 public class JDBC {
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -14,13 +17,15 @@ public class JDBC {
     private static final String userName = "sqlUser"; // Username
     private static String password = "Passw0rd!"; // Password
     private static Connection connection = null;  // Connection Interface
-    private static PreparedStatement preparedStatement;
 
+
+    /** Method to make database connection.
+     * @return
+     */
     public static Connection makeConnection() {
 
         try {
             Class.forName(driver); // Locate Driver
-            //password = Details.getPassword(); // Assign password
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // reference Connection object
             System.out.println("Connection successful!");
         }
@@ -33,10 +38,16 @@ public class JDBC {
         return connection;
     }
 
+    /** Method to get connection.
+     * @return
+     */
     public static Connection getConnection() {
         return connection;
     }
 
+    /**
+     * Method to close connection.
+     */
     public static void closeConnection() {
         try {
             connection.close();
@@ -46,16 +57,4 @@ public class JDBC {
         }
     }
 
-    public static void makePreparedStatement(String sqlStatement, Connection conn) throws SQLException {
-        if (conn != null)
-            preparedStatement = conn.prepareStatement(sqlStatement);
-        else
-            System.out.println("Prepared Statement Creation Failed!");
-    }
-    public static PreparedStatement getPreparedStatement() throws SQLException {
-        if (preparedStatement != null)
-            return preparedStatement;
-        else System.out.println("Null reference to Prepared Statement");
-        return null;
-    }
 }

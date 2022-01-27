@@ -19,6 +19,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * Class to generate the third required report.
+ * It shows the number of customers created by each user.
+ */
 public class ReportThreeController implements Initializable {
 
     Parent scene;
@@ -40,6 +44,10 @@ public class ReportThreeController implements Initializable {
     static Statement statement = null;
     static String customerQuery = "SELECT COUNT(Customer_ID), Created_By FROM customers GROUP BY Created_By";
 
+    /** Method to initialize ReportThreeController.
+     * @param url
+     * @param rb
+     */
     @Override
     public void initialize (URL url, ResourceBundle rb) {
         try {
@@ -65,16 +73,16 @@ public class ReportThreeController implements Initializable {
 
         }
 
-        System.out.println(numberByAdmin);
-        System.out.println(numberByTest);
-        System.out.println(numberByScript);
-
         createdByAdmin.setText(Integer.toString(numberByAdmin));
         createdByTest.setText(Integer.toString(numberByTest));
         createdByScript.setText(Integer.toString(numberByScript));
 
     }
 
+    /** Return to Main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));

@@ -19,6 +19,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ResourceBundle;
 
+/**
+ * Class to generate the first required report.
+ * It shows the number of appointments per month and type.
+ */
 public class ReportOneController implements Initializable {
 
     Parent scene;
@@ -105,6 +109,10 @@ public class ReportOneController implements Initializable {
     static String appointmentQueryMonth = "SELECT COUNT(Appointment_ID), DATE_FORMAT(start, '%M') FROM appointments GROUP BY MONTH(start)";
     static String appointmentQueryType = "SELECT COUNT(Type), Type from appointments GROUP BY Type";
 
+    /** Method to initialize ReportOneController.
+     * @param url
+     * @param rb
+     */
     public void initialize (URL url, ResourceBundle rb) {
         try {
             monthCount();
@@ -139,12 +147,13 @@ public class ReportOneController implements Initializable {
         otherLbl.setText(otherLbl.getText() + " " + numberOther);
     }
 
+    /** Method to count appointments by month.
+     * @throws SQLException
+     */
     public void monthCount() throws SQLException {
         statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(appointmentQueryMonth);
         while(resultSet.next()) {
-            //System.out.println(resultSet.getString(1));
-            //System.out.println(resultSet.getString(2));
 
             if(resultSet.getString(2).equals("January")) {
                 numberInJan = resultSet.getInt(1);
@@ -174,12 +183,13 @@ public class ReportOneController implements Initializable {
         }
     }
 
+    /** Method to count the number of appointments for each type.
+     * @throws SQLException
+     */
     public void typeCount() throws SQLException {
         statement = connection.createStatement();
         ResultSet resultSet = statement.executeQuery(appointmentQueryType);
         while(resultSet.next()) {
-            //System.out.println(resultSet.getString(1));
-            //System.out.println(resultSet.getString(2));
             if(resultSet.getString(2).equals("Planning Session")) {
                 numberPlanningSession = resultSet.getInt(1);
             } else if(resultSet.getString(2).equals("De-Briefing")) {
@@ -196,6 +206,10 @@ public class ReportOneController implements Initializable {
         }
     }
 
+    /** Return to main screen.
+     * @param actionEvent
+     * @throws IOException
+     */
     public void backBtnClick(ActionEvent actionEvent) throws IOException {
         Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
         scene = FXMLLoader.load(getClass().getResource("/view/Main.fxml"));
