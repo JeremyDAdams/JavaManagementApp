@@ -381,6 +381,7 @@ public class MainController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/ReportOne.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+        apptTableView.getItems().clear();
     }
 
     public void report2BtnClick(ActionEvent actionEvent) throws IOException {
@@ -388,6 +389,7 @@ public class MainController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/ReportTwo.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+        apptTableView.getItems().clear();
     }
 
     public void report3BtnClick(ActionEvent actionEvent) throws IOException {
@@ -395,6 +397,7 @@ public class MainController implements Initializable {
         scene = FXMLLoader.load(getClass().getResource("/view/ReportThree.fxml"));
         stage.setScene(new Scene(scene));
         stage.show();
+        apptTableView.getItems().clear();
     }
 }
 
