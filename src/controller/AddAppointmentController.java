@@ -70,6 +70,10 @@ public class AddAppointmentController implements Initializable {
     ObservableList<String> contactNames = FXCollections.observableArrayList();
 
 
+    /**
+     * @param url
+     * @param rb
+     */
     public void initialize (URL url, ResourceBundle rb){
         //populateTimeCombos();
 
@@ -94,6 +98,11 @@ public class AddAppointmentController implements Initializable {
     }
 
 
+    /**
+     * @param actionEvent
+     * @throws IOException
+     * @throws SQLException
+     */
     public void saveBtnClick(ActionEvent actionEvent) throws IOException, SQLException {
         String title = addTitleTxt.getText();
         String description = addDescTxt.getText();

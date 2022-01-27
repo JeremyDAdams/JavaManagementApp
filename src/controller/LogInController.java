@@ -128,7 +128,7 @@ public class LogInController implements Initializable {
         }
 
         if(verify) {
-            //log.info("Login successful.");
+            log.info("Login successful for user: " + userName);
             System.out.println(" Hello there " + userName);
             System.out.println(" Hey there " + userId);
             logInAppointmentAlert();
@@ -137,7 +137,7 @@ public class LogInController implements Initializable {
             stage.setScene(new Scene(scene));
             stage.show();
         } else {
-            //log.warning("Login failed.");
+            log.warning("Login failed for user: " + userName);
             System.out.println("Not working.");
             alert.displayAlert();
         }
