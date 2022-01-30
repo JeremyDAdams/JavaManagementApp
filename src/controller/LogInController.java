@@ -73,6 +73,8 @@ public class LogInController implements Initializable {
     @FXML
     private Label locationLabel;
 
+    @FXML
+    private Label timeZoneLabel;
 
     ResourceBundle rb;
 
@@ -81,6 +83,7 @@ public class LogInController implements Initializable {
      * @param rb
      */
     public void initialize(URL url, ResourceBundle rb) {
+
         this.rb = rb;
         System.out.println(Locale.getDefault());
         System.out.println(ZoneId.systemDefault());
@@ -95,6 +98,7 @@ public class LogInController implements Initializable {
         userLabel.setText(rb.getString("user"));
         headingLabel.setText(rb.getString("heading"));
         locationLabel.setText(currentLocale.getDisplayCountry());
+        timeZoneLabel.setText("Time zone: " + String.valueOf(ZoneId.systemDefault()));
         logInError = rb.getString("loginerror");
 
         submitButton.setDefaultButton(true);

@@ -35,7 +35,7 @@ public class Validation {
         }
     }
 
-    /** Method to ensure that overlapping appointments can't be created for a customer.
+    /** Method to ensure that overlapping appointments can't be created for a customer. This method is for modifying appointments and allows for the modified appointment to overlap its previous hours.
      * @param startLDT
      * @param endLDT
      * @param custId
@@ -51,6 +51,31 @@ public class Validation {
             if (appointment.getCustomerId() == custId) {
                 if (((startLDT.isAfter(appointment.getStart()) && startLDT.isBefore(appointment.getEnd()))
                         || (endLDT.isAfter(appointment.getStart()) && endLDT.isBefore(appointment.getEnd()))) && apptId != appointment.getAppointmentId()) {
+                    //return false;
+                    appointmentOverlapBool = false;
+                }
+            } /*else {
+                appointmentOverlapBool = true;
+            }*/
+        }
+        return appointmentOverlapBool;
+    }
+
+    /** Method to ensure that overlapping appointments can't be created for a customer. This method is used when making a new appointment.
+     * @param startLDT
+     * @param endLDT
+     * @param custId
+     * @return
+     */
+    public static boolean noAppointmentOverlapNew(LocalDateTime startLDT, LocalDateTime endLDT, int custId) {
+        boolean appointmentOverlapBool = true;
+        System.out.println(custId);
+        getAppointments();
+        for (Appointments appointment : appointments) {
+            System.out.println(appointment.getCustomerId());
+            if (appointment.getCustomerId() == custId) {
+                if (((startLDT.isAfter(appointment.getStart()) && startLDT.isBefore(appointment.getEnd()))
+                        || (endLDT.isAfter(appointment.getStart()) && endLDT.isBefore(appointment.getEnd())))) {
                     //return false;
                     appointmentOverlapBool = false;
                 }
