@@ -1,4 +1,4 @@
-Title: C195 Customer and Appointment tracking system.
+Title: Customer and Appointment tracking system.
 The purpose of thise application is to provide a customer and appointment system that allows users to create, update, delete, and view information their customers and appointments.
 Created by Jeremy Adams
 Version 2.0
